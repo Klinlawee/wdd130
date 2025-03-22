@@ -1,0 +1,9 @@
+/* Apply Open Sans to body text */
+body {
+    font-family: 'Open Sans', sans-serif;
+}
+
+/* Apply Roboto Slab to headings */
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Roboto Slab', serif;
+}
