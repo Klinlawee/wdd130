@@ -17,7 +17,7 @@ body {
 }
 
 header {
-    background-color: var(--primary-color);
+    background-color: var(--secondary-color);
     padding: 20px;
     display: flex;
     justify-content: space-between;
@@ -37,7 +37,7 @@ nav a {
 
 .hero {
     position: relative;
-    background: url('../images/hero.jpg') no-repeat center center/cover;
+    background: url('../images/hero.jpg') no-repeat right right/cover;
     height: 400px;
     display: flex;
     flex-direction: column;
