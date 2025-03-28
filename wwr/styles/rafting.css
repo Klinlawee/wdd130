@@ -16,16 +16,24 @@ body {
     text-align: center;
 }
 
+/* Updated Header with CSS Grid */
 header {
     background-color: var(--secondary-color);
     padding: 20px;
-    display: flex;
-    justify-content: space-between;
+    display: grid;
+    grid-template-columns: auto 1fr;
     align-items: center;
+    gap: 20px;
 }
 
 .logo img {
     height: 60px;
+}
+
+/* Updated Navigation with Flexbox */
+nav {
+    display: flex;
+    justify-content: flex-end;
 }
 
 nav a {
@@ -33,11 +41,17 @@ nav a {
     text-decoration: none;
     margin: 0 15px;
     font-weight: bold;
+    padding: 5px 10px;
+    transition: color 0.3s ease;
+}
+
+nav a:hover {
+    color: var(--accent1-color);
 }
 
 .hero {
     position: relative;
-    background: url('../images/hero.jpg') no-repeat right right/cover;
+    background: url('../images/hero.jpg') no-repeat center center/cover;
     height: 400px;
     display: flex;
     flex-direction: column;
@@ -111,25 +125,62 @@ section {
     display: flex;
     justify-content: center;
     gap: 10px;
+    flex-wrap: wrap;
 }
 
 .gallery img {
     width: 150px;
     height: 100px;
     border-radius: 5px;
+    object-fit: cover;
 }
 
+/* Updated Footer with social icons aligned to right */
 footer {
     background-color: var(--secondary-color);
     padding: 20px;
     color: white;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.social-icons {
+    display: flex;
+    gap: 15px;
 }
 
 .social-icons img {
     width: 30px;
-    margin: 0 10px;
+    height: 30px;
+    transition: transform 0.3s ease;
+}
+
+.social-icons img:hover {
+    transform: scale(1.1);
 }
 
 .social-icons a {
     text-decoration: none;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    header {
+        grid-template-columns: 1fr;
+        justify-items: center;
+    }
+    
+    nav {
+        justify-content: center;
+        flex-wrap: wrap;
+    }
+    
+    article {
+        max-width: 90%;
+    }
+    
+    .gallery img {
+        width: 120px;
+    }
 }
