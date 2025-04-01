@@ -49,73 +49,51 @@ nav a:hover {
     color: var(--accent1-color);
 }
 
-.hero {
-    position: relative;
-    background: url('../images/hero.jpg') no-repeat center center/cover;
-    height: 400px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    color: white;
-    font-family: 'Roboto Slab', serif;
-    text-align: center;
-    padding: 20px;
-    z-index: 1;
-}
-
-.hero::before {
-    content: "";
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0, 0, 0, 0.5); /* Dark overlay for contrast */
-    z-index: -1;
-}
-
-.hero h1 {
-    font-size: 2.5rem;
-    margin-bottom: 20px;
-    position: relative;
-    z-index: 2;
-}
-
-.hero p {
-    color: var(--hero-text-color); /* Apply gold color to paragraph */
-    font-size: 1.2rem;
-    position: relative;
-    z-index: 2;
-}
-
-/* Styling for the first article section with an image centered */
 article {
     background: rgba(255, 255, 255, 0.9);
     padding: 20px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    max-width: 60%;
+    max-width: 80%; /* Increased max-width for better use of space */
     margin: 20px auto;
     border-radius: 10px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     text-align: center;
-}
-
-article img {
-    height: 150px;
-    width: auto;
-    border-radius: 5px;
-    margin-bottom: 10px;
+    overflow: hidden; /* Ensure no overflow */
 }
 
 article p {
-    font-size: 1.2rem;
-    margin-top: 10px;
-    text-align: center;
-    max-width: 80%;
+    font-size: 16px;
+    line-height: 1.5;
+    margin-bottom: 20px; /* Space between the paragraph and images */
 }
+
+article .image-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); /* Grid with auto-adjusting columns */
+    gap: 20px; /* Space between images */
+    justify-items: center; /* Horizontally center each image */
+    align-items: center; /* Vertically center each image */
+    width: 100%; /* Make the grid take up full width */
+    margin: 0 auto; /* Center the grid on the page */
+}
+
+article img {
+    width: 100%; /* Make images responsive to their grid container */
+    height: auto; /* Maintain aspect ratio */
+    border-radius: 5px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Optional shadow to make images pop */
+}
+
+.hero {
+    padding: 20px;
+    text-align: center;
+}
+
+.hero h1 {
+    font-size: 36px;
+    color: #333;
+    margin-bottom: 20px;
+}
+
 
 section {
     padding: 50px;
