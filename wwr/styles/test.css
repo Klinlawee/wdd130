@@ -47,7 +47,9 @@ nav a:hover {
     align-items: center;
 }
 .hero img {
-    width: 60%;
+    width: 100%;
+    max-width: 500px;
+    height: auto;
     border-radius: 10px;
     margin-bottom: 10px;
 }
@@ -56,8 +58,14 @@ nav a:hover {
 #history {
     padding: 40px;
     background-color: #fff;
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Centers content horizontally */
+    text-align: center; /* Ensures the text itself is centered */
 }
 #history h2 {
+    margin-bottom: 20px; /* Adds spacing below the heading */
+    font-size: 2rem;
     color: #0077cc;
 }
 .history-content {
@@ -67,7 +75,9 @@ nav a:hover {
     gap: 20px;
 }
 .history-content img {
-    width: 40%;
+    width: 100%;
+    max-width: 500px;
+    height: auto;
     border-radius: 10px;
 }
 
@@ -79,14 +89,30 @@ nav a:hover {
 }
 .gallery {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
     gap: 20px;
     padding: 20px;
 }
-.gallery img {
-    width: 90%;
-    border-radius: 8px;
-    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+.gallery {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 10px; /* Reduced the gap from 20px to 10px */
+    padding: 20px;
+}
+.gallery p {
+    grid-column: 1 / -1; /* Span the p element across all columns */
+    text-align: center;
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 20px; /* Space between the text and images */
+}
+.gallery figure {
+    margin: 0;
+    position: relative;
+    overflow: hidden;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 figcaption {
     font-weight: bold;
@@ -97,7 +123,7 @@ figcaption {
 /* Footer */
 footer {
     display: flex;
-    justify-content: space-between; /* Ensures separation between text and icons */
+    justify-content: space-between; /* Separates text and icons */
     align-items: center;
     background-color: #222;
     color: #fff;
@@ -118,11 +144,6 @@ footer p {
     width: 30px;
 }
 
-.social-icons img {
-    width: 30px;
-    margin: 0 10px;
-}
-
 /* Responsive Design */
 @media screen and (max-width: 768px) {
     .history-content {
@@ -132,16 +153,8 @@ footer p {
     .history-content img {
         width: 80%;
     }
-}
-/* Responsive Design for Adventure Section */
-@media screen and (max-width: 768px) {
-    .adventure {
-        padding: 20px;
-    }
-    .gallery {
-        grid-template-columns: 1fr; /* Single column layout */
-    }
-    .gallery img {
-        width: 100%; /* Full width for images */
+    footer {
+        flex-direction: column;
+        text-align: center;
     }
 }

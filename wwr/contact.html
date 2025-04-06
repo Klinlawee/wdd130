@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Contact White Water Rafting - Get in Touch for Reservations and Inquiries">
+    <meta name="author" content="Morrison Godson Halm">
+    <title>Contact Us | White Water Rafting</title>
+    <link rel="stylesheet" href="styles/rafting.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <!-- Header -->
+    <header>
+        <div class="logo">
+            <img src="images/logoLife.png" alt="White Water Rafting Logo">
+        </div>
+        <nav>
+            <a href="../index.html">Home</a>
+            <a href="about.html">About Us</a>
+            <a href="trips.html">Trips</a>
+            <a href="contact.html">Contact Us</a>
+        </nav>
+    </header>
+
+    <!-- Main Content -->
+    <main>
+        <section class="contact-info">
+            <h1>Contact White Water Rafting</h1>
+            <div class="company-details">
+                <p><strong>Address:</strong> Volta Lake, Ghana</p>
+                <p><strong>Phone:</strong> +233244492296</p>
+                <p><strong>Email:</strong> info@whitewaterrafting.com</p>
+            </div>
+
+            <!-- Embedded Google Map -->
+            <div class="map-container">
+                <iframe 
+                    src="https://www.google.com/maps/embed?pb=!1m18..."
+                    width="600" height="450" allowfullscreen="" loading="lazy">
+                </iframe>
+            </div>
+        </section>
+
+        <!-- Employee Profiles -->
+        <section class="team">
+            <h2>Meet Our Team</h2>
+            <div class="team-gallery">
+                <figure>
+                    <img src="images/wayo.webp" alt="John - Lead Guide">
+                    <figcaption>Kofiwayo - Lead Guide</figcaption>
+                </figure>
+                <figure>
+                    <img src="images/godson (1).webp" alt="Mary - Safety Specialist">
+                    <figcaption>Godson - Safety Specialist</figcaption>
+                </figure>
+                <figure>
+                    <img src="images/profile.webp" alt="David - Tour Coordinator">
+                    <figcaption>Morrison - Tour Coordinator</figcaption>
+                </figure>
+            </div>
+        </section>
+
+        <!-- Contact Form -->
+        <section class="contact-form">
+            <h2>Send Us a Message</h2>
+            <form action="#" method="post">
+                <label for="name">Full Name:</label>
+                <input type="text" id="name" name="name" required>
+
+                <label for="email">Email:</label>
+                <input type="email" id="email" name="email" required>
+
+                <p><strong>Purpose of Inquiry:</strong></p>
+                <label><input type="radio" name="purpose" value="General Inquiry" required> General Inquiry</label>
+                <label><input type="radio" name="purpose" value="Reservation Question"> Reservation Question</label>
+                <label><input type="radio" name="purpose" value="Website Suggestion"> Website Suggestion</label>
+
+                <label for="message">Your Message:</label>
+                <textarea id="message" name="message" rows="5" required></textarea>
+
+                <label>
+                    <input type="checkbox" name="newsletter"> Please subscribe me to the monthly newsletter
+                </label>
+
+                <button type="submit">Submit Inquiry</button>
+            </form>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2025 White Water Rafting | Godson Morrison Halm</p>
+        <div class="social-icons">
+            <a href="#"><img src="images/facekbook-icon.png" alt="Facebook"></a>
+            <a href="#"><img src="images/twitter-icon.png" alt="Twitter"></a>
+            <a href="#"><img src="images/instagram-icon.png" alt="Instagram"></a>
+        </div>
+        <!-- Link to Wireframe -->
+        <p><a href="wireframes/contact-wireframe.png">View Contact Page Wireframe</a></p>
+    </footer>
+
+</body>
+</html>
