@@ -257,3 +257,223 @@ footer p {
         text-align: center;
     }
 }
+/* Global Styles for Responsiveness */
+body {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+img {
+    max-width: 100%; /* Ensures images adjust to container width */
+    height: auto; /* Maintains aspect ratio */
+}
+
+.container {
+    width: 90%; /* Adds flexible container width */
+    max-width: 1200px; /* Prevents stretching on large screens */
+    margin: auto; /* Centers the content */
+}
+
+/* Make Text Legible on All Screens */
+h1, h2, h3, p {
+    font-size: calc(16px + 0.5vw); /* Scales text size based on screen width */
+}
+
+/* Fluid Layouts */
+.hero-img, .featured-img {
+    width: 100%;
+    height: auto; /* Ensures hero images adjust proportionally */
+}
+
+/* Grid Responsiveness */
+.grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); /* Adapts columns */
+    gap: 20px;
+}
+
+/* Navigation Responsiveness */
+nav {
+    display: flex;
+    flex-wrap: wrap; /* Allows items to move to the next line if needed */
+    justify-content: space-around; /* Space items evenly */
+    gap: 10px;
+}
+
+nav a {
+    font-size: calc(14px + 0.3vw); /* Scales for screen sizes */
+}
+
+/* Button Responsiveness */
+button, .cta-button {
+    font-size: calc(14px + 0.3vw);
+    padding: 10px 15px;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+}
+
+/* Footer Responsiveness */
+footer {
+    flex-wrap: wrap; /* Adjust layout for smaller screens */
+    text-align: center;
+}
+
+/* Form Responsiveness */
+form {
+    width: 100%;
+    max-width: 600px;
+    margin: auto;
+    padding: 20px;
+}
+/* Mobile First Approach */
+
+/* Small Devices (phones, less than 768px) */
+@media screen and (max-width: 768px) {
+    header, footer {
+        flex-direction: column; /* Stacks navigation and content */
+        text-align: center;
+    }
+
+    .hero-heading {
+        font-size: 1.5rem;
+    }
+
+    .history-content, .team-gallery, .trip-options .grid {
+        grid-template-columns: 1fr; /* Single column for narrow screens */
+    }
+}
+
+/* Medium Devices (tablets, 768px to 1024px) */
+@media screen and (min-width: 768px) and (max-width: 1024px) {
+    .hero-heading {
+        font-size: 2rem;
+    }
+
+    .grid {
+        grid-template-columns: repeat(2, 1fr); /* Two columns for mid-sized devices */
+    }
+}
+
+/* Large Devices (desktops, above 1024px) */
+@media screen and (min-width: 1024px) {
+    .grid {
+        grid-template-columns: repeat(3, 1fr); /* Three columns for large screens */
+    }
+}
+
+/* Newsletter Section */
+.newsletter {
+    padding: 40px;
+    background-color: #f4f4f4; /* Light, neutral background for professionalism */
+    text-align: center;
+}
+
+.newsletter h2 {
+    font-size: 2rem; /* Bold and clear heading size */
+    color: #0077cc; /* Matches the overall website color scheme */
+    margin-bottom: 20px;
+    text-transform: uppercase; /* Adds a formal touch */
+    font-weight: bold; /* Ensures the heading stands out */
+    letter-spacing: 1px; /* Slight spacing for elegance */
+}
+
+/* Call-to-Action Section */
+.call-to-action {
+    padding: 40px;
+    background-color: #e3f2fd; /* Subtle blue background for engagement */
+    text-align: center;
+}
+
+.call-to-action h2 {
+    font-size: 2rem; /* Professional and readable size */
+    color: #005fa3; /* Slightly darker shade for distinction */
+    margin-bottom: 20px;
+    font-weight: bold; /* Makes the heading impactful */
+    text-transform: uppercase; /* Formal style for headings */
+    letter-spacing: 1px; /* Enhances readability */
+}
+
+/* Offerings Section */
+.offerings {
+    padding: 40px;
+    background-color: #fff; /* Neutral background for professional look */
+    text-align: center;
+}
+
+.offerings h2 {
+    font-size: 2rem;
+    color: #0077cc; /* Matches the website theme */
+    margin-bottom: 20px;
+    text-transform: uppercase; /* Adds professionalism */
+    font-weight: bold;
+}
+
+.grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); /* Responsive layout */
+    gap: 20px; /* Space between grid items */
+    margin-top: 20px; /* Adds breathing space above the grid */
+}
+
+.grid-item {
+    background-color: #f4f4f4; /* Light background for content clarity */
+    border: 1px solid #ddd; /* Subtle border for distinction */
+    border-radius: 8px; /* Soft corners for polished look */
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); /* Professional shadow effect */
+    padding: 20px; /* Space inside each grid item */
+    text-align: left; /* Align content for readability */
+    transition: transform 0.3s ease, box-shadow 0.3s ease; /* Adds hover interactivity */
+}
+
+.grid-item:hover {
+    transform: scale(1.05); /* Slight zoom effect on hover */
+    box-shadow: 0px 6px 8px rgba(0, 0, 0, 0.2); /* Enhances hover effect */
+}
+
+.grid-item img {
+    width: 100%; /* Full width inside the item */
+    border-radius: 8px; /* Matches the container corners */
+    margin-bottom: 15px; /* Space below the image */
+}
+
+.grid-item p {
+    font-size: 1.1rem; /* Readable font size */
+    color: #333; /* Professional text color */
+    line-height: 1.5; /* Improves readability */
+}
+/* Featured Destination Section */
+.featured-destination {
+    padding: 40px; /* Adds comfortable spacing */
+    background-color: #f4f4f4; /* Light background for a clean look */
+    text-align: center; /* Centers the content */
+    border-radius: 8px; /* Softens the corners for a modern feel */
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+    margin: 40px auto; /* Centers the section on the page */
+    max-width: 1000px; /* Limits the width for better readability */
+}
+
+.featured-destination h2 {
+    font-size: 2rem; /* Ensures the heading stands out */
+    color: #0077cc; /* Aligns with the website’s theme colors */
+    margin-bottom: 20px; /* Adds spacing below the heading */
+    text-transform: uppercase; /* Gives the heading a formal and bold appearance */
+    letter-spacing: 1px; /* Improves readability */
+    font-weight: bold; /* Adds emphasis */
+}
+
+.featured-destination p {
+    font-size: 1.2rem; /* Balanced text size for easy readability */
+    color: #333; /* Professional and neutral text color */
+    line-height: 1.6; /* Improves readability */
+    margin-bottom: 20px; /* Space below the paragraph */
+}
+
+.featured-destination img {
+    width: 100%; /* Makes the image responsive */
+    max-width: 800px; /* Prevents the image from becoming too large */
+    margin-top: 20px; /* Adds space above the image */
+    border-radius: 8px; /* Matches the container’s rounded corners */
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); /* Adds depth to the image */
+}
+

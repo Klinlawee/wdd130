@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Book your adventure with White Water Rafting at Volta Lake! Choose from beginner, intermediate, and advanced trips to suit your thrill level.">
+    <meta name="author" content="Halm Godson Morrison">
+    <title>White Water Rafting | Booking</title>
+    <link rel="stylesheet" href="styles/rafting.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;700&display=swap" rel="stylesheet">
+</head>
+<body>
+   <!-- Header -->
+   <header>
+       <div class="logo">
+           <img src="images/logoLife.png" alt="White Water Rafting Logo">
+       </div>
+       <nav>
+           <a href="index.html">Home</a>
+           <a href="about.html">About Us</a>
+           <a href="trips.html">Trips</a>
+           <a href="booking.html" class="active">Booking</a>
+           <a href="contact.html">Contact Us</a>
+       </nav>
+   </header>
+
+   <!-- Main Content -->
+   <main>
+       <!-- Booking Form -->
+       <section class="booking">
+           <h1>Book Your Adventure</h1>
+           <p>Secure your spot for an unforgettable white-water rafting experience at Volta Lake. Fill out the form below to confirm your booking!</p>
+           <form>
+               <label for="name">Full Name:</label>
+               <input type="text" id="name" name="name" required>
+
+               <label for="email">Email Address:</label>
+               <input type="email" id="email" name="email" required>
+
+               <label for="trip">Select Your Trip:</label>
+               <select id="trip" name="trip" required>
+                   <option value="beginner">Beginner Rapids</option>
+                   <option value="intermediate">Intermediate Rapids</option>
+                   <option value="advanced">Advanced Rapids</option>
+               </select>
+
+               <label for="date">Preferred Date:</label>
+               <input type="date" id="date" name="date" required>
+
+               <label for="comments">Additional Comments:</label>
+               <textarea id="comments" name="comments" rows="4" placeholder="Let us know any special requests!"></textarea>
+
+               <button type="submit">Submit Booking</button>
+           </form>
+       </section>
+   </main>
+
+   <!-- Footer -->
+   <footer>
+       <p>&copy; 2025 White Water Rafting | Godson Morrison Halm</p>
+       <div class="social-icons">
+           <a href="#"><img src="images/facekbook-icon.png" alt="Facebook"></a>
+           <a href="#"><img src="images/twitter-icon.png" alt="Twitter"></a>
+           <a href="#"><img src="images/instagram-icon.png" alt="Instagram"></a>
+       </div>
+   </footer>
+</body>
+</html>
