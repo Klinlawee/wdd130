@@ -1,0 +1,652 @@
+/* Base Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #f9f9f9;
+    color: #333;
+}
+
+/* Loader styles for the loading screen */
+
+/* Background overlay */
+.loader-bg {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: white;
+    z-index: 9998;
+    transition: opacity 0.4s ease, visibility 0.4s ease;
+}
+
+/* Loader container */
+.loader {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 9999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    pointer-events: none;
+    transition: opacity 0.4s ease, visibility 0.4s ease;
+}
+
+/* Video styling */
+.loader video {
+    width: 120px;
+    height: auto;
+}
+
+/* Fallback text if video doesn't load */
+.fallback-text {
+    font-size: 1.2rem;
+    color: #555;
+    font-family: Arial, sans-serif;
+    text-align: center;
+}
+
+/* Hide animation */
+.loader.hidden,
+.loader-bg.hidden {
+    opacity: 0;
+    visibility: hidden;
+}
+
+/* =============================
+   General Styles
+============================= */
+
+/* Navigation */
+nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: #fff;
+    padding: 15px 40px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+
+.logo img {
+    height: 50px;
+}
+
+.menu {
+    list-style: none;
+    display: flex;
+    align-items: center;
+    gap: 25px;
+}
+
+.menu li a {
+    text-decoration: none;
+    color: #333;
+    font-weight: 500;
+    transition: color 0.3s;
+}
+
+.menu li a:hover {
+    color: #e74c3c;
+}
+
+.icons-sec,
+.icons-sec-menu {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.icons-sec i,
+.icons-sec-menu i {
+    font-size: 18px;
+    cursor: pointer;
+    position: relative;
+}
+
+.icons-sec i span,
+.icons-sec-menu i span {
+    background-color: #e74c3c;
+    color: white;
+    font-size: 12px;
+    padding: 2px 6px;
+    border-radius: 50%;
+    position: absolute;
+    top: -8px;
+    right: -10px;
+}
+
+.bars {
+    display: none;
+}
+
+/* Header Section */
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 50px 100px;
+    background-color: #f2f2f2;
+}
+
+.hero-info h2 {
+    font-size: 18px;
+    color: #e74c3c;
+    margin-bottom: 10px;
+}
+
+.hero-info h1 {
+    font-size: 48px;
+    margin-bottom: 20px;
+}
+
+.hero-info h1 span {
+    color: #e74c3c;
+}
+
+.hero-info p {
+    font-size: 16px;
+    margin-bottom: 30px;
+    color: #555;
+}
+
+.shop-now-btn button {
+    background-color: #e74c3c;
+    color: white;
+    border: none;
+    padding: 12px 25px;
+    font-size: 16px;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+.shop-now-btn button a {
+    color: white;
+    text-decoration: none;
+}
+
+/* Collection Section */
+.collection {
+    display: flex;
+    gap: 20px;
+    padding: 50px 100px;
+}
+
+.all-collection img {
+    width: 100%;
+    border-radius: 10px;
+}
+
+.collection-big-card,
+.small-collection-card {
+    flex: 1;
+}
+
+.collection-small-card {
+    margin-bottom: 20px;
+}
+
+.collection-text,
+.callection-small-card-text {
+    margin-top: 10px;
+    text-align: center;
+}
+
+.collection-text p,
+.callection-small-card-text p {
+    font-size: 14px;
+    color: #999;
+}
+
+/* Product Grid */
+.product-heading-text {
+    text-align: center;
+    padding: 40px 20px 20px;
+}
+
+.product-menu {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    margin-bottom: 30px;
+}
+
+.product-menu a {
+    color: #333;
+    font-weight: 500;
+    text-decoration: none;
+    padding: 5px 15px;
+    border-bottom: 2px solid transparent;
+    transition: all 0.3s;
+}
+
+.product-menu a:hover {
+    color: #e74c3c;
+    border-bottom-color: #e74c3c;
+}
+
+.product-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 30px;
+    padding: 20px 100px;
+}
+
+.product-box {
+    background: white;
+    border-radius: 10px;
+    padding: 15px;
+    text-align: center;
+    transition: transform 0.3s;
+}
+
+.product-box:hover {
+    transform: translateY(-5px);
+}
+
+.product-box img {
+    width: 100%;
+    border-radius: 5px;
+    height: 250px;
+    object-fit: cover;
+}
+
+.product-off {
+    color: #e74c3c;
+    font-weight: bold;
+}
+
+/* Action icons under products */
+.affter-addcart-boxs {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin-top: 10px;
+}
+
+.cart-box1 i {
+    font-size: 18px;
+    cursor: pointer;
+    transition: color 0.3s;
+}
+
+.cart-box1 i:hover {
+    color: #e74c3c;
+}
+
+/* Gender Banner */
+.gander-container {
+    padding: 50px 100px;
+}
+
+.genders {
+    display: flex;
+    gap: 20px;
+}
+
+.hover-gander {
+    flex: 1;
+    position: relative;
+    overflow: hidden;
+}
+
+.hover-gander img {
+    width: 100%;
+    border-radius: 10px;
+    transition: transform 0.3s;
+}
+
+.hover-gander:hover img {
+    transform: scale(1.05);
+}
+
+.gender-contain-text {
+    position: absolute;
+    bottom: 20px;
+    left: 20px;
+    color: white;
+}
+
+/* Blog Section */
+.post-blogs {
+    display: flex;
+    gap: 20px;
+    padding: 50px 100px;
+}
+
+.post {
+    background: #fff;
+    border-radius: 10px;
+    overflow: hidden;
+    flex: 1;
+}
+
+.post img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+}
+
+.post h2 {
+    padding: 10px;
+    font-size: 20px;
+}
+
+/* Newsletter */
+.feedback-sec {
+    background: #e74c3c;
+    color: white;
+    text-align: center;
+    padding: 40px 20px;
+}
+
+.email-submit-btn {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 20px;
+}
+
+.email-submit-btn input {
+    padding: 10px;
+    width: 300px;
+    border-radius: 5px;
+    border: none;
+}
+
+.email-submit-btn button {
+    padding: 10px 20px;
+    border: none;
+    background: white;
+    color: #e74c3c;
+    font-weight: bold;
+    border-radius: 5px;
+}
+
+/* Footer */
+footer {
+    background: #333;
+    color: #ccc;
+    padding: 50px 100px 30px;
+}
+
+.hero_footer {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 30px;
+}
+
+.information h1 {
+    font-size: 18px;
+    color: #fff;
+    margin-bottom: 15px;
+}
+
+.information a {
+    display: block;
+    color: #ccc;
+    text-decoration: none;
+    margin: 5px 0;
+    font-size: 14px;
+}
+
+footer hr {
+    margin: 30px 0;
+    border-color: #444;
+}
+
+.last-section {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    align-items: center;
+}
+
+.last-section .icons i {
+    margin-right: 15px;
+    color: #ccc;
+    cursor: pointer;
+    font-size: 18px;
+}
+
+.last-section .icons img {
+    height: 30px;
+    margin-right: 10px;
+}
+
+/* =============================
+   Cart Page Styles
+============================= */
+.cart-page {
+    padding: 50px 100px;
+    background: #f9f9f9;
+    min-height: 80vh;
+}
+
+.cart-page h1 {
+    margin-bottom: 30px;
+    font-size: 32px;
+    color: #333;
+}
+
+.cart-container {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+#cart-items {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.cart-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 1px 5px rgba(0,0,0,0.05);
+}
+
+.cart-item-title {
+    font-weight: 600;
+    font-size: 16px;
+}
+
+.cart-item-price {
+    color: #e74c3c;
+    font-weight: bold;
+}
+
+.remove-btn {
+    background: none;
+    border: none;
+    color: #e74c3c;
+    font-size: 18px;
+    cursor: pointer;
+}
+
+.cart-summary {
+    text-align: right;
+    font-size: 20px;
+    font-weight: bold;
+}
+
+#clear-cart {
+    margin-top: 10px;
+    padding: 10px 15px;
+    background-color: #e74c3c;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: 0.3s ease;
+}
+
+#clear-cart:hover {
+    background-color: #c0392b;
+}
+
+/* Responsive Styles */
+@media (max-width: 1200px) {
+    .header,
+    .collection,
+    .gander-container,
+    .post-blogs,
+    .cart-page,
+    footer {
+        padding: 40px 50px;
+    }
+
+    .hero-info h1 {
+        font-size: 36px;
+    }
+
+    .product-container {
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        padding: 20px 50px;
+    }
+}
+
+@media (max-width: 992px) {
+    .header {
+        flex-direction: column;
+        text-align: center;
+        gap: 30px;
+    }
+
+    .collection,
+    .post-blogs,
+    .genders {
+        flex-direction: column;
+    }
+
+    .menu {
+        display: none;
+    }
+
+    .bars {
+        display: block;
+        font-size: 24px;
+        cursor: pointer;
+    }
+
+    .shop-now-btn button {
+        width: 100%;
+    }
+}
+
+@media (max-width: 768px) {
+    .hero-info h1 {
+        font-size: 28px;
+    }
+
+    .hero-info p,
+    .product-menu a {
+        font-size: 14px;
+    }
+
+    .email-submit-btn {
+        flex-direction: column;
+    }
+
+    .email-submit-btn input {
+        width: 100%;
+    }
+
+    .cart-item {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .hero_footer {
+        flex-direction: column;
+        gap: 20px;
+    }
+
+    .last-section {
+        flex-direction: column;
+        gap: 15px;
+        text-align: center;
+    }
+}
+
+@media (max-width: 480px) {
+    .logo img {
+        height: 40px;
+    }
+
+    nav {
+        padding: 10px 20px;
+    }
+
+    .product-box img {
+        height: 180px;
+    }
+
+    .feedback-sec {
+        padding: 30px 15px;
+    }
+
+    .collection-text p,
+    .callection-small-card-text p {
+        font-size: 12px;
+    }
+
+    .post h2 {
+        font-size: 16px;
+    }
+
+    .cart-page h1 {
+        font-size: 24px;
+    }
+}
+
+/* Mobile menu hidden by default */
+.mobile-menu {
+    display: none;
+}
+
+@media (max-width: 992px) {
+    .mobile-menu {
+        display: block;
+        position: absolute;
+        top: 60px;
+        right: 0;
+        width: 100%;
+        background: #fff;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        z-index: 1000;
+    }
+
+    .menu {
+        display: none;
+    }
+
+    .bars {
+        display: block;
+    }
+
+    .mobile-menu.hidden {
+        transform: translateY(-100%);
+        transition: transform 0.3s ease;
+    }
+
+    .mobile-menu.show {
+        transform: translateY(0);
+    }
+}
+/* End of CSS */
