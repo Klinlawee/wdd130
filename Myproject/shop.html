@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="ByNeX Import - Stylish & Trendy Fashion for Everyone.">
+    <meta name="keywords" content="Bluetooth, Baby, fashion, shoes, shop">
+    <meta name="Koffie Morrison" content="ByNeX Import">
+    <title>Shop | ByNeX Import</title>
+    <link rel="stylesheet" href="shop.css">
+    <!--! font awesome cdn  -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+</head>
+
+<body>
+    <div class="loader-bg"></div> 
+    <div class="loader">
+        <video autoplay muted loop playsinline>
+            <source src="images/loader.webm" type="video/webm">
+            <div class="fallback-text">Loading...</div>
+        </video>
+    </div>
+
+    <nav>
+        <div class="logo">
+            <img src="images/logo.jpg" alt="Logo">
+        </div>
+    
+        <ul class="menu">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="shop.html" class="active">Shop</a></li>
+            <li><a href="metro About.html">About</a></li>
+            <li><a href="#" id="more_page">Pages</a></li>
+            <li><a href="#">Elements</a></li>
+            <li><a href="#">Contact</a></li>
+        </ul>
+    
+        <div class="icons-sec">
+            <i class="fa-solid fa-magnifying-glass"></i>
+            <i class="fa-regular fa-user"></i>
+            <i class="fa-regular fa-heart"><span id="wishlist-count">1</span></i>
+            <i class="fa-solid fa-cart-shopping shop-cart"><span id="cart-count">2</span></i>
+            <h3>$<span id="cart-total"></span></h3>
+        </div>
+    
+        <!-- Hamburger icon (visible on mobile) -->
+        <div class="bars" id="menu-toggle">
+            <i class="fas fa-bars"></i>
+        </div>
+
+        <!-- Mobile Menu Container -->
+        <div class="mobile-menu">
+            <ul class="mobile-menu-list">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="shop.html" class="active">Shop</a></li>
+                <li><a href="metro About.html">About</a></li>
+                <li><a href="#">Pages</a></li>
+                <li><a href="#">Elements</a></li>
+                <li><a href="#">Contact</a></li>
+            </ul>
+        </div>
+    </nav>
+    
+    <!-- Shopping Cart Sidebar -->
+    <div class="cart-sidebar" id="cart-sidebar">
+        <div class="cart-header">
+            <h3>Shopping Cart</h3>
+            <button class="close-cart" id="close-cart">&times;</button>
+        </div>
+        <div class="cart-items" id="cart-items">
+            <!-- Cart items will be dynamically inserted here -->
+        </div>
+        <div class="cart-footer">
+            <div class="cart-total">
+                <span>Total:</span>
+                <span id="sidebar-cart-total">$0.00</span>
+            </div>
+            <button class="checkout-btn">Proceed to Checkout</button>
+            <button class="view-cart-btn">View Cart</button>
+        </div>
+    </div>
+    
+    <div class="shop-header">
+        <h1>Our Products</h1>
+        <div class="breadcrumbs">
+            <a href="index.html">Home</a> / <span>Shop</span>
+        </div>
+    </div>
+    
+    <div class="shop-container">
+        <aside class="shop-sidebar">
+            <div class="sidebar-section">
+                <h3>Categories</h3>
+                <ul class="category-list">
+                    <li><a href="#">All Products</a></li>
+                    <li><a href="#">Men's Footwear</a></li>
+                    <li><a href="#">Women's Footwear</a></li>
+                    <li><a href="#">Boots</a></li>
+                    <li><a href="#">Sneakers</a></li>
+                    <li><a href="#">Accessories</a></li>
+                    <li><a href="#">Men Two Piece</a></li>
+                    <li><a href="#">Women Two Piece</a></li>
+                </ul>
+            </div>
+            
+            <div class="sidebar-section">
+                <h3>Filter by Price</h3>
+                <div class="price-range">
+                    <input type="range" min="0" max="1000" value="500" class="slider" id="price-range">
+                    <div class="price-values">
+                        <span>$0</span>
+                        <span>$1000</span>
+                    </div>
+                    <button class="filter-btn">Filter</button>
+                </div>
+            </div>
+            
+            <div class="sidebar-section">
+                <h3>Size</h3>
+                <div class="size-options">
+                    <label><input type="checkbox" name="size" value="5"> 5</label>
+                    <label><input type="checkbox" name="size" value="6"> 6</label>
+                    <label><input type="checkbox" name="size" value="7"> 7</label>
+                    <label><input type="checkbox" name="size" value="8"> 8</label>
+                    <label><input type="checkbox" name="size" value="9"> 9</label>
+                    <label><input type="checkbox" name="size" value="10"> 10</label>
+                </div>
+            </div>
+            
+            <div class="sidebar-section">
+                <h3>Color</h3>
+                <div class="color-options">
+                    <span class="color-box black" data-color="black"></span>
+                    <span class="color-box brown" data-color="brown"></span>
+                    <span class="color-box white" data-color="white"></span>
+                    <span class="color-box red" data-color="red"></span>
+                    <span class="color-box blue" data-color="blue"></span>
+                </div>
+            </div>
+            
+            <div class="sidebar-section">
+                <h3>Brand</h3>
+                <div class="brand-options">
+                    <label><input type="checkbox" name="brand" value="nike"> Nike</label>
+                    <label><input type="checkbox" name="brand" value="adidas"> Adidas</label>
+                    <label><input type="checkbox" name="brand" value="puma"> Puma</label>
+                    <label><input type="checkbox" name="brand" value="timberland"> Timberland</label>
+                    <label><input type="checkbox" name="brand" value="clarks"> Clarks</label>
+                </div>
+            </div>
+        </aside>
+        
+        <main class="shop-main">
+            <div class="shop-controls">
+                <div class="sort-options">
+                    <label for="sort">Sort by:</label>
+                    <select id="sort">
+                        <option value="default">Default</option>
+                        <option value="price-low">Price: Low to High</option>
+                        <option value="price-high">Price: High to Low</option>
+                        <option value="name">Name</option>
+                        <option value="popularity">Popularity</option>
+                        <option value="newest">Newest</option>
+                    </select>
+                </div>
+                <div class="view-options">
+                    <span class="grid-view active" data-view="grid"><i class="fas fa-th"></i></span>
+                    <span class="list-view" data-view="list"><i class="fas fa-list"></i></span>
+                </div>
+            </div>
+            
+            <div class="products-grid" id="products-container">
+                <!-- Products will be dynamically inserted here -->
+            </div>
+            
+            <div class="pagination">
+                <a href="#" class="prev">Previous</a>
+                <a href="#" class="active">1</a>
+                <a href="#">2</a>
+                <a href="#">3</a>
+                <a href="#" class="next">Next</a>
+            </div>
+        </main>
+    </div>
+    
+    <footer>
+        <div class="hero_footer">
+            <div class="address">
+                <img src="images/logo.jpg" alt="logo">
+                <h4>ByNex Import</h4>                          
+                <div class="info"><i class="fa-solid fa-location-dot"></i>
+                    <h3>Ghana,Greater Accra, Bortianor Hills</h3>
+                </div>
+                <div class="info"><i class="fa-solid fa-phone"></i>
+                    <h3>+233244492296</h3>
+                </div>
+                <div class="info"> <i class="fa-solid fa-envelope"></i>
+                    <h3>bynextimport@gmail.com </h3>
+                </div>
+            </div>
+            <div class="information">
+                <h1>information</h1>
+
+                <a href="#">about us</a>
+                <a href="#">latest post</a>
+                <a href="#">Selling Tips</a>
+                <a href="#">Advertising</a>
+                <a href="#">Contact Us</a>
+
+            </div>
+            <div class="information">
+                <h1>My Account</h1>
+
+                <a href="#">My Account</a>
+                <a href="#">Login/Register</a>
+                <a href="#">Cart</a>
+                <a href="#">Wishlist</a>
+                <a href="#">Order History</a>
+
+            </div>
+            <div class="information">
+                <h1>Help an support</h1>
+
+                <a href="#">How to shop</a>
+                <a href="#">Payment</a>
+                <a href="#">Returns</a>
+                <a href="#">Delivery</a>
+                <a href="#">Privacy &amp; Cookie Policy</a>
+
+            </div>
+        </div>
+        <hr>
+        <div class="last-section">
+            <h3 class="copyright-text">© Copyright ByNeX Import. All rights reserved 2025. Designed and Developed by Koffie Morrison</h3>
+            <div class="icons">
+                <i class="fa-brands fa-facebook"></i>
+                <i class="fa-brands fa-twitter"></i>
+                <i class="fa-brands fa-linkedin"></i>
+                <i class="fa-brands fa-youtube"></i>
+                <i class="fa-brands fa-pinterest"></i>
+                <i class="fa-solid fa-wifi"></i>
+            </div>
+            <div class="payment-icons">
+                <img src="./images/payment1.png" alt="">
+                <img src="./images/payment2.png" alt="">
+                <img src="./images/momo-logo.webp" alt="">
+                <img src="./images/tigo.jpg" alt="">
+                <img src="./images/vodacash.jpg" alt="">
+            </div>
+        </div>
+    </footer>
+    <script src="shop.js"></script>
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    loadCartFromLocalStorage();
+    updateCartCount(); // optional, to update cart icon count
+    // Call renderCartItems() or renderCheckoutItems() here if needed
+  });
+</script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</body>
+</html>

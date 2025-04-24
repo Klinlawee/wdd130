@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Checkout</title>
+  <link rel="stylesheet" href="styles/style.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+  <style>
+    .checkout-page {
+      padding: 2rem;
+      max-width: 800px;
+      margin: auto;
+      background: #f9f9f9;
+    }
+    .checkout-page h1 {
+      text-align: center;
+      margin-bottom: 1.5rem;
+    }
+    .checkout-items {
+      margin-bottom: 2rem;
+    }
+    .checkout-item {
+      display: flex;
+      justify-content: space-between;
+      padding: 1rem;
+      background: #fff;
+      border-bottom: 1px solid #eee;
+    }
+    .checkout-total {
+      text-align: right;
+      font-size: 1.25rem;
+      font-weight: bold;
+      margin-bottom: 2rem;
+    }
+    .payment-methods {
+      background: #fff;
+      padding: 1.5rem;
+      border-radius: 8px;
+    }
+    .payment-methods h2 {
+      margin-bottom: 1rem;
+    }
+    .payment-option {
+      margin-bottom: 1rem;
+    }
+    .payment-option label {
+      margin-left: 0.5rem;
+    }
+    .checkout-button {
+      display: block;
+      width: 100%;
+      padding: 1rem;
+      background-color: #28a745;
+      color: white;
+      border: none;
+      font-size: 1.2rem;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    .checkout-button:hover {
+      background-color: #218838;
+    }
+  </style>
+</head>
+<body>
+  <nav>
+    <div class="logo">
+      <a href="index.html"><img src="images/logo.jpg" alt="Logo" /></a>
+    </div>
+    <ul class="menu">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="shop.html">Shop</a></li>
+      <li><a href="cart.html">Cart</a></li>
+    </ul>
+    <div class="icons-sec-menu">
+      <i class="fa-solid fa-cart-shopping shop-cart"><span>0</span></i>
+      <h3>$0.00</h3>
+    </div>
+  </nav>
+
+  <main class="checkout-page">
+    <h1>Checkout</h1>
+    <div class="checkout-items" id="checkout-items"></div>
+    <div class="checkout-total">Total: <span id="checkout-total">$0.00</span></div>
+
+    <div class="payment-methods">
+      <h2>Select Payment Method</h2>
+      <div class="payment-option">
+        <input type="radio" name="payment" id="visa" value="Visa" />
+        <label for="visa"><i class="fa-brands fa-cc-visa"></i> Visa</label>
+      </div>
+      <div class="payment-option">
+        <input type="radio" name="payment" id="mastercard" value="MasterCard" />
+        <label for="mastercard"><i class="fa-brands fa-cc-mastercard"></i> MasterCard</label>
+      </div>
+      <div class="payment-option">
+        <input type="radio" name="payment" id="mobile-money" value="Mobile Money" />
+        <label for="mobile-money"><i class="fa-solid fa-mobile-screen"></i> Mobile Money</label>
+      </div>
+    </div>
+
+    <button class="checkout-button" onclick="submitCheckout()">Confirm and Pay</button>
+  </main>
+
+  <script>
+    const checkoutItemsContainer = document.getElementById('checkout-items');
+    const checkoutTotalEl = document.getElementById('checkout-total');
+    const cart = JSON.parse(localStorage.getItem('cart')) || [];
+
+    function renderCheckout() {
+      checkoutItemsContainer.innerHTML = '';
+      let total = 0;
+
+      if (cart.length === 0) {
+        checkoutItemsContainer.innerHTML = '<p>Your cart is empty.</p>';
+        return;
+      }
+
+      cart.forEach(item => {
+        const itemDiv = document.createElement('div');
+        itemDiv.className = 'checkout-item';
+        itemDiv.innerHTML = `
+          <span>${item.title}</span>
+          <span>$${item.price.toFixed(2)}</span>
+      `;
+        checkoutItemsContainer.appendChild(itemDiv);
+        total += item.price;
+      });
+
+      checkoutTotalEl.textContent = `$${total.toFixed(2)}`;
+    }
+
+    function submitCheckout() {
+      const paymentMethod = document.querySelector('input[name="payment"]:checked');
+      if (!paymentMethod) {
+        alert('Please select a payment method.');
+        return;
+      }
+      alert(`Thank you for your payment with ${paymentMethod.value}! Your order is being processed.`);
+      localStorage.removeItem('cart');
+      window.location.href = 'index.html';
+    }
+
+    // Run on load
+    renderCheckout();
+  </script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/js/all.min.js"></script>
+</body>
+</html>

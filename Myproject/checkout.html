@@ -1,0 +1,949 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Checkout - Metro Boots Shop</title>
+  <style>
+    /* =======================
+       Checkout Page Styles
+    ======================= */
+    :root {
+      --space-xs: 0.25rem;
+      --space-sm: 0.5rem;
+      --space-md: 1rem;
+      --space-lg: 1.5rem;
+      --space-xl: 2rem;
+      --space-xxl: 3rem;
+      --radius-sm: 4px;
+      --radius-md: 8px;
+      --primary-color: #2563eb;
+      --primary-dark: #1d4ed8;
+      --white: #ffffff;
+      --light-gray: #e5e7eb;
+      --bg-color: #f9fafb;
+      --text-color: #111827;
+      --text-light: #6b7280;
+      --error-color: #ef4444;
+      --success-color: #10b981;
+      --transition-fast: 0.15s;
+      --transition-normal: 0.3s;
+      --shadow-sm: 0 1px 3px rgba(0,0,0,0.1);
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    body {
+      background-color: var(--bg-color);
+      color: var(--text-color);
+    }
+
+    nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: var(--space-lg) var(--space-xxl);
+      background-color: var(--white);
+      box-shadow: var(--shadow-sm);
+    }
+
+    .logo img {
+      height: 50px;
+    }
+
+    .menu {
+      display: flex;
+      list-style: none;
+      gap: var(--space-xl);
+    }
+
+    .menu a {
+      text-decoration: none;
+      color: var(--text-color);
+      font-weight: 500;
+      transition: color var(--transition-fast);
+    }
+
+    .menu a:hover {
+      color: var(--primary-color);
+    }
+
+    .icons-sec-menu {
+      display: flex;
+      align-items: center;
+      gap: var(--space-md);
+    }
+
+    .shop-cart {
+      position: relative;
+      font-size: 1.25rem;
+      cursor: pointer;
+    }
+
+    .shop-cart span {
+      position: absolute;
+      top: -8px;
+      right: -8px;
+      background-color: var(--primary-color);
+      color: white;
+      border-radius: 50%;
+      width: 18px;
+      height: 18px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.75rem;
+    }
+
+    .checkout-page {
+      padding: var(--space-xxl) var(--space-xxl);
+      background: var(--bg-color);
+      min-height: 80vh;
+    }
+    
+    .checkout-page h1 {
+      font-size: 2rem;
+      color: var(--text-color);
+      margin-bottom: var(--space-xl);
+    }
+    
+    .checkout-container {
+      display: flex;
+      gap: var(--space-xl);
+    }
+    
+    .checkout-summary {
+      flex: 1;
+      background: var(--white);
+      padding: var(--space-xl);
+      border-radius: var(--radius-md);
+      box-shadow: var(--shadow-sm);
+      height: fit-content;
+    }
+    
+    .checkout-summary h2 {
+      font-size: 1.5rem;
+      margin-bottom: var(--space-lg);
+      padding-bottom: var(--space-md);
+      border-bottom: 1px solid var(--light-gray);
+    }
+    
+    #checkout-items {
+      margin-bottom: var(--space-xl);
+    }
+    
+    .cart-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: var(--space-md) 0;
+      border-bottom: 1px solid var(--light-gray);
+    }
+    
+    .cart-item-image img {
+      width: 80px;
+      height: 80px;
+      object-fit: cover;
+      border-radius: var(--radius-sm);
+    }
+    
+    .cart-item:last-child {
+      border-bottom: none;
+    }
+    
+    .remove-item {
+      background: none;
+      border: none;
+      color: var(--error-color);
+      cursor: pointer;
+      font-size: 0.875rem;
+      margin-left: var(--space-md);
+    }
+    
+    .remove-item:hover {
+      text-decoration: underline;
+    }
+    
+    .order-totals {
+      margin-top: var(--space-xl);
+      padding-top: var(--space-md);
+      border-top: 1px solid var(--light-gray);
+    }
+    
+    .order-totals div {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: var(--space-sm);
+    }
+    
+    .order-totals .total {
+      font-size: 1.25rem;
+      font-weight: 600;
+      margin-top: var(--space-md);
+      padding-top: var(--space-md);
+      border-top: 1px solid var(--light-gray);
+    }
+    
+    .checkout-form {
+      flex: 1;
+      background: var(--white);
+      padding: var(--space-xl);
+      border-radius: var(--radius-md);
+      box-shadow: var(--shadow-sm);
+    }
+    
+    .checkout-form h2 {
+      font-size: 1.5rem;
+      margin-bottom: var(--space-lg);
+    }
+    
+    .payment-tabs {
+      display: flex;
+      margin-bottom: var(--space-lg);
+      border-bottom: 1px solid var(--light-gray);
+    }
+    
+    .tab-btn {
+      padding: var(--space-sm) var(--space-md);
+      background: none;
+      border: none;
+      border-bottom: 3px solid transparent;
+      font-size: 1rem;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all var(--transition-fast);
+    }
+    
+    .tab-btn.active {
+      border-bottom-color: var(--primary-color);
+      color: var(--primary-color);
+    }
+    
+    .tab-btn:not(.active):hover {
+      color: var(--primary-dark);
+    }
+    
+    .tab-pane {
+      display: none;
+    }
+    
+    .tab-pane.active {
+      display: block;
+    }
+    
+    .card-icons, .mobile-money-icons {
+      display: flex;
+      gap: var(--space-sm);
+      margin-bottom: var(--space-lg);
+    }
+    
+    .card-icon, .mobile-icon {
+      height: 30px;
+      width: auto;
+      object-fit: contain;
+    }
+    
+    .form-group {
+      margin-bottom: var(--space-md);
+    }
+    
+    .form-group label {
+      display: block;
+      margin-bottom: var(--space-xs);
+      font-size: 0.875rem;
+      font-weight: 500;
+    }
+    
+    .form-group input, 
+    .form-group select {
+      width: 100%;
+      padding: var(--space-sm);
+      border: 1px solid var(--light-gray);
+      border-radius: var(--radius-sm);
+      font-size: 1rem;
+      transition: border-color var(--transition-fast);
+    }
+    
+    .form-group input:focus, 
+    .form-group select:focus {
+      outline: none;
+      border-color: var(--primary-color);
+    }
+    
+    .form-row {
+      display: flex;
+      gap: var(--space-md);
+    }
+    
+    .form-row .form-group {
+      flex: 1;
+    }
+    
+    .checkout-btn {
+      width: 100%;
+      padding: var(--space-md);
+      background-color: var(--primary-color);
+      color: var(--white);
+      border: none;
+      border-radius: var(--radius-sm);
+      font-size: 1rem;
+      font-weight: 500;
+      cursor: pointer;
+      transition: background-color var(--transition-normal);
+      margin-top: var(--space-md);
+    }
+    
+    .checkout-btn:hover {
+      background-color: var(--primary-dark);
+    }
+
+    /* Billing Address section */
+    .customer-info, .billing-address {
+      margin-bottom: var(--space-xl);
+      padding-bottom: var(--space-lg);
+      border-bottom: 1px solid var(--light-gray);
+    }
+
+    .form-note {
+      font-size: 0.75rem;
+      color: var(--text-light);
+      margin-top: var(--space-xs);
+    }
+
+    /* Notification styles */
+    .notification {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      background: var(--success-color);
+      color: white;
+      padding: 15px 25px;
+      border-radius: 4px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+      transform: translateY(100px);
+      opacity: 0;
+      transition: all 0.3s ease;
+      z-index: 1000;
+    }
+
+    .notification.show {
+      transform: translateY(0);
+      opacity: 1;
+    }
+
+    .notification.error {
+      background: var(--error-color);
+    }
+
+    /* Error states */
+    .error-message {
+      color: var(--error-color);
+      font-size: 0.75rem;
+      margin-top: var(--space-xs);
+      display: none;
+    }
+
+    .has-error input,
+    .has-error select {
+      border-color: var(--error-color);
+    }
+
+    .has-error .error-message {
+      display: block;
+    }
+
+    /* Responsive Styles */
+    @media (max-width: 768px) {
+      .checkout-container {
+        flex-direction: column;
+      }
+      
+      nav {
+        padding: var(--space-md);
+      }
+      
+      .checkout-page {
+        padding: var(--space-xl) var(--space-md);
+      }
+    }
+
+    @media (max-width: 480px) {
+      .menu {
+        gap: var(--space-md);
+      }
+      
+      .checkout-page h1 {
+        font-size: 1.5rem;
+      }
+      
+      .checkout-summary, .checkout-form {
+        padding: var(--space-lg);
+      }
+      
+      .form-row {
+        flex-direction: column;
+        gap: var(--space-sm);
+      }
+    }
+  </style>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+</head>
+<body>
+
+  <nav>
+    <div class="logo">
+      <a href="index.html"><img src="images/logo.jpg" alt="Logo" /></a>
+    </div>
+    <ul class="menu">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="shop.html">Shop</a></li>
+      <li><a href="cart.html">Cart</a></li>
+    </ul>
+    <div class="icons-sec-menu">
+      <i class="fa-solid fa-cart-shopping shop-cart"><span>0</span></i>
+      <h3>$0.00</h3>
+    </div>
+  </nav>
+
+  <main class="checkout-page">
+    <h1>Checkout</h1>
+    
+    <div class="checkout-container">
+      <div class="checkout-summary">
+        <h2>Order Summary</h2>
+        <div id="checkout-items"><p>Your cart is empty.</p></div>
+        <div class="order-totals">
+          <div class="subtotal">
+            <span>Subtotal:</span>
+            <span id="subtotal">$0.00</span>
+          </div>
+          <div class="shipping">
+            <span>Shipping:</span>
+            <span id="shipping">$5.00</span>
+          </div>
+          <div class="total">
+            <span>Total:</span>
+            <span id="total">$0.00</span>
+          </div>
+        </div>
+        <button id="clear-cart" class="checkout-btn" style="background-color: var(--error-color); margin-top: 1rem;">Clear Cart</button>
+      </div>
+      
+      <div class="checkout-form">
+        <div class="customer-info">
+          <h2>Contact Information</h2>
+          <div class="form-group">
+            <label for="email">Email Address</label>
+            <input type="email" id="email" placeholder="your@email.com" required>
+            <p class="form-note">We'll send your order confirmation here</p>
+            <p class="error-message">Please enter a valid email address</p>
+          </div>
+        </div>
+
+        <div class="billing-address">
+          <h2>Billing Address</h2>
+          
+          <div class="form-row">
+            <div class="form-group">
+              <label for="first-name">First Name</label>
+              <input type="text" id="first-name" required>
+              <p class="error-message">This field is required</p>
+            </div>
+            <div class="form-group">
+              <label for="last-name">Last Name</label>
+              <input type="text" id="last-name" required>
+              <p class="error-message">This field is required</p>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="address">Street Address</label>
+            <input type="text" id="address" required>
+            <p class="error-message">This field is required</p>
+          </div>
+
+          <div class="form-group">
+            <label for="address2">Apt, Suite, etc. (Optional)</label>
+            <input type="text" id="address2">
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label for="city">City</label>
+              <input type="text" id="city" required>
+              <p class="error-message">This field is required</p>
+            </div>
+            <div class="form-group">
+              <label for="country">Country</label>
+              <select id="country" required>
+                <option value="">Select Country</option>
+                <option value="US">United States</option>
+                <option value="CA">Canada</option>
+                <option value="GH">Ghana</option>
+                <option value="NG">Nigeria</option>
+                <option value="UK">United Kingdom</option>
+                <option value="DE">Germany</option>
+                <option value="FR">France</option>
+                <option value="IT">Italy</option>
+                <option value="ES">Spain</option>
+                <option value="AU">Australia</option>
+                <option value="NZ">New Zealand</option>
+                <option value="JP">Japan</option>
+                <option value="IN">India</option>
+                <option value="BR">Brazil</option>
+                <option value="MX">Mexico</option>
+                <option value="CA">Canada</option>
+                <option value="CN">China</option>
+                <option value="RU">Russia</option>
+                <option value="ZA">South Africa</option>
+                <option value="KE">Kenya</option>
+              </select>
+              <p class="error-message">Please select a country</p>
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label for="state">State/Province</label>
+              <select id="state" required>
+                <option value="">Select State</option>
+              </select>
+              <p class="error-message">Please select a state/province</p>
+            </div>
+            <div class="form-group">
+              <label for="zip">ZIP/Postal Code</label>
+              <input type="text" id="zip" required>
+              <p class="error-message">This field is required</p>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="phone">Phone Number</label>
+            <input type="tel" id="phone" placeholder="(123) 456-7890">
+            <p class="form-note">For delivery questions only</p>
+          </div>
+        </div>
+
+        <h2>Payment Method</h2>
+        
+        <div class="payment-methods">
+          <div class="payment-tabs">
+            <button class="tab-btn active" data-tab="credit-card">Credit Card</button>
+            <button class="tab-btn" data-tab="mobile-money">Mobile Money</button>
+          </div>
+          
+          <div class="payment-content">
+            <!-- Credit Card Form -->
+            <div id="credit-card" class="tab-pane active">
+              <div class="card-icons">
+                <img src="images/payment1.png" alt="Visa" class="card-icon">
+                <img src="images/payment2.png" alt="Mastercard" class="card-icon">
+              </div>
+              
+              <form id="credit-card-form">
+                <div class="form-group">
+                  <label for="card-number">Card Number</label>
+                  <input type="text" id="card-number" placeholder="1234 5678 9012 3456" required>
+                  <p class="error-message">Please enter a valid card number</p>
+                </div>
+                
+                <div class="form-group">
+                  <label for="card-name">Name on Card</label>
+                  <input type="text" id="card-name" placeholder="John Doe" required>
+                  <p class="error-message">This field is required</p>
+                </div>
+                
+                <div class="form-row">
+                  <div class="form-group">
+                    <label for="expiry-date">Expiry Date</label>
+                    <input type="text" id="expiry-date" placeholder="MM/YY" required>
+                    <p class="error-message">Please enter a valid expiry date</p>
+                  </div>
+                  
+                  <div class="form-group">
+                    <label for="cvv">CVV</label>
+                    <input type="text" id="cvv" placeholder="123" required>
+                    <p class="error-message">Please enter a valid CVV</p>
+                  </div>
+                </div>
+                
+                <button type="submit" class="checkout-btn">Pay with Card</button>
+              </form>
+            </div>
+            
+            <!-- Mobile Money Form -->
+            <div id="mobile-money" class="tab-pane">
+              <div class="mobile-money-icons">
+                <img src="images/momo-logo.webp" alt="MTN Mobile Money" class="mobile-icon">
+                <img src="images/tigo.jpg" alt="Airtel Money" class="mobile-icon">
+                <img src="images/vodacash.jpg" alt="Orange Money" class="mobile-icon">
+              </div>
+              
+              <form id="mobile-money-form">
+                <div class="form-group">
+                  <label for="mobile-provider">Mobile Provider</label>
+                  <select id="mobile-provider" required>
+                    <option value="">Select Provider</option>
+                    <option value="mtn">MTN Mobile Money</option>
+                    <option value="airtel">Airtel Tigo Cash</option>
+                    <option value="orange">Vodafone Cash</option>
+                  </select>
+                  <p class="error-message">Please select a provider</p>
+                </div>
+                
+                <div class="form-group">
+                  <label for="mobile-number">Mobile Number</label>
+                  <input type="tel" id="mobile-number" placeholder="e.g. 0244123456" required>
+                  <p class="error-message">Please enter a valid mobile number</p>
+                </div>
+                
+                <div class="form-group">
+                  <label for="mobile-name">Account Name</label>
+                  <input type="text" id="mobile-name" placeholder="Name on Mobile Account" required>
+                  <p class="error-message">This field is required</p>
+                </div>
+                
+                <button type="submit" class="checkout-btn">Pay with Mobile Money</button>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      // Initialize cart from localStorage
+      let cart = JSON.parse(localStorage.getItem('cart')) || [];
+      
+      // Element references
+      const checkoutItems = document.getElementById('checkout-items');
+      const subtotalEl = document.getElementById('subtotal');
+      const totalEl = document.getElementById('total');
+      const shippingEl = document.getElementById('shipping');
+      const clearCartBtn = document.getElementById('clear-cart');
+      const cartCountEl = document.querySelector('.shop-cart span');
+      const cartTotalEl = document.querySelector('.icons-sec-menu h3');
+      const countrySelect = document.getElementById('country');
+      const stateSelect = document.getElementById('state');
+      
+      // Tab functionality
+      const tabButtons = document.querySelectorAll('.tab-btn');
+      const tabPanes = document.querySelectorAll('.tab-pane');
+      
+      tabButtons.forEach(button => {
+        button.addEventListener('click', () => {
+          tabButtons.forEach(btn => btn.classList.remove('active'));
+          tabPanes.forEach(pane => pane.classList.remove('active'));
+          
+          button.classList.add('active');
+          const tabId = button.getAttribute('data-tab');
+          document.getElementById(tabId).classList.add('active');
+        });
+      });
+      
+      // State/province population based on country selection
+      const statesByCountry = {
+        'US': ['Alabama', 'Alaska', 'Arizona', 'Arkansas', 'California', 'Colorado', 'Connecticut', 'Delaware', 'Florida', 'Georgia', 'Hawaii', 'Idaho', 'Illinois', 'Indiana', 'Iowa', 'Kansas', 'Kentucky', 'Louisiana', 'Maine', 'Maryland', 'Massachusetts', 'Michigan', 'Minnesota', 'Mississippi', 'Missouri', 'Montana', 'Nebraska', 'Nevada', 'New Hampshire', 'New Jersey', 'New Mexico', 'New York', 'North Carolina', 'North Dakota', 'Ohio', 'Oklahoma', 'Oregon', 'Pennsylvania', 'Rhode Island', 'South Carolina', 'South Dakota', 'Tennessee', 'Texas', 'Utah', 'Vermont', 'Virginia', 'Washington', 'West Virginia', 'Wisconsin', 'Wyoming'],
+        'CA': ['Alberta', 'British Columbia', 'Manitoba', 'New Brunswick', 'Newfoundland and Labrador', 'Northwest Territories', 'Nova Scotia', 'Nunavut', 'Ontario', 'Prince Edward Island', 'Quebec', 'Saskatchewan', 'Yukon'],
+        'GH': ['Greater Accra', 'Ashanti', 'Western', 'Eastern', 'Central', 'Volta', 'Northern', 'Upper East', 'Upper West', 'Brong-Ahafo'],
+        'NG': ['Abia', 'Adamawa', 'Akwa Ibom', 'Anambra', 'Bauchi', 'Bayelsa', 'Benue', 'Borno', 'Cross River', 'Delta', 'Ebonyi', 'Edo', 'Ekiti', 'Enugu', 'Gombe', 'Imo', 'Jigawa', 'Kaduna', 'Kano', 'Katsina', 'Kebbi', 'Kogi', 'Kwara', 'Lagos', 'Nasarawa', 'Niger', 'Ogun', 'Ondo', 'Osun', 'Oyo', 'Plateau', 'Rivers', 'Sokoto', 'Taraba', 'Yobe', 'Zamfara']
+      };
+      
+      countrySelect.addEventListener('change', function() {
+        stateSelect.innerHTML = '<option value="">Select State</option>';
+        const states = statesByCountry[this.value] || [];
+        
+        states.forEach(state => {
+          const option = document.createElement('option');
+          option.value = state;
+          option.textContent = state;
+          stateSelect.appendChild(option);
+        });
+      });
+      
+      // Function to update cart display
+      function updateCartDisplay() {
+        checkoutItems.innerHTML = '';
+        let subtotal = 0;
+        
+        if (cart.length === 0) {
+          checkoutItems.innerHTML = '<p class="empty-cart">Your cart is empty.</p>';
+          if (clearCartBtn) clearCartBtn.style.display = 'none';
+        } else {
+          if (clearCartBtn) clearCartBtn.style.display = 'block';
+          
+          cart.forEach((item, idx) => {
+            const itemTotal = item.price * (item.quantity || 1);
+            subtotal += itemTotal;
+            
+            const itemDiv = document.createElement('div');
+            itemDiv.className = 'cart-item';
+            itemDiv.innerHTML = `
+              <div class="cart-item-image">
+                <img src="${item.image || 'images/default-product.jpg'}" alt="${item.name || item.title}">
+              </div>
+              <div class="cart-item-details">
+                <h4>${item.name || item.title}</h4>
+                <p>$${item.price.toFixed(2)} × ${item.quantity || 1}</p>
+                <p>$${itemTotal.toFixed(2)}</p>
+                <button class="remove-item" data-idx="${idx}">Remove</button>
+              </div>
+            `;
+            checkoutItems.appendChild(itemDiv);
+          });
+        }
+        
+        const shipping = cart.length > 0 ? 5.00 : 0;
+        const total = subtotal + shipping;
+        
+        if (subtotalEl) subtotalEl.textContent = `$${subtotal.toFixed(2)}`;
+        if (shippingEl) shippingEl.textContent = `$${shipping.toFixed(2)}`;
+        if (totalEl) totalEl.textContent = `$${total.toFixed(2)}`;
+        
+        // Update cart header
+        const totalCount = cart.reduce((sum, item) => sum + (item.quantity || 1), 0);
+        if (cartCountEl) cartCountEl.textContent = totalCount;
+        if (cartTotalEl) cartTotalEl.textContent = `$${total.toFixed(2)}`;
+      }
+      
+      // Save cart to localStorage
+      function saveCartToLocalStorage() {
+        localStorage.setItem('cart', JSON.stringify(cart));
+      }
+      
+      // Show notification
+      function showNotification(message, isError = false) {
+        const notification = document.createElement('div');
+        notification.className = `notification ${isError ? 'error' : ''}`;
+        notification.textContent = message;
+        document.body.appendChild(notification);
+        
+        setTimeout(() => {
+          notification.classList.add('show');
+          setTimeout(() => {
+            notification.classList.remove('show');
+            setTimeout(() => notification.remove(), 300);
+          }, 3000);
+        }, 10);
+      }
+      
+      // Form validation
+      function validateForm() {
+        let isValid = true;
+        const requiredFields = [
+          'email', 'first-name', 'last-name', 'address', 
+          'city', 'country', 'state', 'zip'
+        ];
+        
+        // Validate email
+        const email = document.getElementById('email');
+        if (!email.value || !/^\S+@\S+\.\S+$/.test(email.value)) {
+          email.parentElement.classList.add('has-error');
+          isValid = false;
+        } else {
+          email.parentElement.classList.remove('has-error');
+        }
+        
+        // Validate other required fields
+        requiredFields.forEach(fieldId => {
+          const field = document.getElementById(fieldId);
+          if (field && !field.value) {
+            field.parentElement.classList.add('has-error');
+            isValid = false;
+          } else if (field) {
+            field.parentElement.classList.remove('has-error');
+          }
+        });
+        
+        return isValid;
+      }
+      
+      // Validate payment form based on active tab
+      function validatePaymentForm() {
+        const activeTab = document.querySelector('.tab-btn.active').getAttribute('data-tab');
+        
+        if (activeTab === 'credit-card') {
+          const cardNumber = document.getElementById('card-number');
+          const cardName = document.getElementById('card-name');
+          const expiryDate = document.getElementById('expiry-date');
+          const cvv = document.getElementById('cvv');
+          let isValid = true;
+          
+          // Validate card number (simple validation)
+          if (!cardNumber.value || !/^\d{16}$/.test(cardNumber.value.replace(/\s/g, ''))) {
+            cardNumber.parentElement.classList.add('has-error');
+            isValid = false;
+          } else {
+            cardNumber.parentElement.classList.remove('has-error');
+          }
+          
+          // Validate card name
+          if (!cardName.value) {
+            cardName.parentElement.classList.add('has-error');
+            isValid = false;
+          } else {
+            cardName.parentElement.classList.remove('has-error');
+          }
+          
+          // Validate expiry date (simple validation)
+          if (!expiryDate.value || !/^\d{2}\/\d{2}$/.test(expiryDate.value)) {
+            expiryDate.parentElement.classList.add('has-error');
+            isValid = false;
+          } else {
+            expiryDate.parentElement.classList.remove('has-error');
+          }
+          
+          // Validate CVV (simple validation)
+          if (!cvv.value || !/^\d{3,4}$/.test(cvv.value)) {
+            cvv.parentElement.classList.add('has-error');
+            isValid = false;
+          } else {
+            cvv.parentElement.classList.remove('has-error');
+          }
+          
+          return isValid;
+        } else if (activeTab === 'mobile-money') {
+          const provider = document.getElementById('mobile-provider');
+          const mobileNumber = document.getElementById('mobile-number');
+          const mobileName = document.getElementById('mobile-name');
+          let isValid = true;
+          
+          // Validate provider
+          if (!provider.value) {
+            provider.parentElement.classList.add('has-error');
+            isValid = false;
+          } else {
+            provider.parentElement.classList.remove('has-error');
+          }
+          
+          // Validate mobile number (simple validation)
+          if (!mobileNumber.value || !/^0\d{9}$/.test(mobileNumber.value)) {
+            mobileNumber.parentElement.classList.add('has-error');
+            isValid = false;
+          } else {
+            mobileNumber.parentElement.classList.remove('has-error');
+          }
+          
+          // Validate account name
+          if (!mobileName.value) {
+            mobileName.parentElement.classList.add('has-error');
+            isValid = false;
+          } else {
+            mobileName.parentElement.classList.remove('has-error');
+          }
+          
+          return isValid;
+        }
+        
+        return false;
+      }
+      
+      // Remove item from cart
+      checkoutItems.addEventListener('click', function(e) {
+        if (e.target.classList.contains('remove-item')) {
+          const idx = e.target.getAttribute('data-idx');
+          const item = cart[idx];
+          
+          if (confirm(`Remove ${item.name || item.title} from cart?`)) {
+            cart.splice(idx, 1);
+            saveCartToLocalStorage();
+            updateCartDisplay();
+            showNotification(`${item.name || item.title} removed from cart`);
+          }
+        }
+      });
+      
+      // Clear cart
+      clearCartBtn.addEventListener('click', function() {
+        if (cart.length === 0) {
+          showNotification('Your cart is already empty');
+          return;
+        }
+        
+        if (confirm('Are you sure you want to clear your cart?')) {
+          cart = [];
+          saveCartToLocalStorage();
+          updateCartDisplay();
+          showNotification('Cart cleared');
+        }
+      });
+      
+      // Payment form submission
+      const creditCardForm = document.getElementById('credit-card-form');
+      const mobileMoneyForm = document.getElementById('mobile-money-form');
+      
+      if (creditCardForm) {
+        creditCardForm.addEventListener('submit', function(e) {
+          e.preventDefault();
+          
+          if (cart.length === 0) {
+            showNotification('Your cart is empty', true);
+            return;
+          }
+          
+          if (!validateForm() || !validatePaymentForm()) {
+            showNotification('Please fill all required fields correctly', true);
+            return;
+          }
+          
+          if (confirm(`Confirm payment of ${totalEl.textContent} via Credit Card?`)) {
+            showNotification('Payment processed successfully!');
+            cart = [];
+            saveCartToLocalStorage();
+            setTimeout(() => {
+              window.location.href = "thankyou.html";
+            }, 2000);
+          }
+        });
+      }
+      
+      if (mobileMoneyForm) {
+        mobileMoneyForm.addEventListener('submit', function(e) {
+          e.preventDefault();
+          
+          if (cart.length === 0) {
+            showNotification('Your cart is empty', true);
+            return;
+          }
+          
+          if (!validateForm() || !validatePaymentForm()) {
+            showNotification('Please fill all required fields correctly', true);
+            return;
+          }
+          
+          if (confirm(`Confirm payment of ${totalEl.textContent} via Mobile Money?`)) {
+            showNotification('Mobile Money payment initiated! You will receive a prompt on your phone.');
+            cart = [];
+            saveCartToLocalStorage();
+            setTimeout(() => {
+              window.location.href = "thankyou.html";
+            }, 2000);
+          }
+        });
+      }
+      
+      // Navigation to cart
+      document.querySelector('.shop-cart').addEventListener('click', function(e) {
+        e.preventDefault();
+        saveCartToLocalStorage();
+        window.location.href = 'cart.html';
+      });
+      
+      // Initialize cart display
+      updateCartDisplay();
+    });
+  </script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/js/all.min.js"></script>
+</body>
+</html>
+<!-- End of checkout.html -->
+<!-- This is a simple checkout page for an e-commerce website. It includes a navigation bar, order summary, billing address form, and payment method selection. The page is styled using CSS variables and responsive design techniques. JavaScript is used to handle cart functionality, form validation, and payment processing. -->
+<!-- The page also includes a notification system to inform users about actions taken, such as clearing the cart or successful payment. The checkout process is designed to be user-friendly and visually appealing, ensuring a smooth experience for customers. -->
+<!-- The code is structured to be easily maintainable and extendable, allowing for future enhancements and features. The use of localStorage for cart management ensures that the cart persists across page reloads, providing a seamless shopping experience. -->
