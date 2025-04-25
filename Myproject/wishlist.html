@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="ByNeX Import - Your Wishlist">
+    <meta name="keywords" content="wishlist, favorites, save for later">
+    <meta name="Koffie Morrison" content="ByNeX Import">
+    <title>Wishlist | ByNeX Import</title>
+    <link rel="stylesheet" href="shop.css">
+    <link rel="stylesheet" href="wishlist.css">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+</head>
+
+<body>
+    <div class="loader-bg"></div> 
+    <div class="loader">
+        <video autoplay muted loop playsinline>
+            <source src="images/loader.webm" type="video/webm">
+            <div class="fallback-text">Loading...</div>
+        </video>
+    </div>
+
+    <nav>
+        <div class="logo">
+            <img src="images/logo.jpg" alt="Logo">
+        </div>
+    
+        <ul class="menu">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="shop.html">Shop</a></li>
+            <li><a href="wishlist.html">Wishlist</a></li>
+            <li><a href="metro About.html">About</a></li>
+            <li><a href="#">Contact</a></li>
+        </ul>
+    
+        <div class="icons-sec">
+            <i class="fa-solid fa-magnifying-glass"></i>
+            <i class="fa-regular fa-user"></i>
+            <i class="fa-regular fa-heart"><span id="wishlist-count">0</span></i>
+            <i class="fa-solid fa-cart-shopping shop-cart"><span id="cart-count">0</span></i>
+            <h3>$<span id="cart-total">0.00</span></h3>
+        </div>
+    
+        <!-- Hamburger icon -->
+        <div class="bars" id="menu-toggle">
+            <i class="fas fa-bars"></i>
+        </div>
+
+        <!-- Mobile Menu -->
+        <div class="mobile-menu" id="mobile-menu">
+            <ul class="mobile-menu-list">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="shop.html">Shop</a></li>
+                <li><a href="metro About.html">About</a></li>
+                <li><a href="#">Pages</a></li>
+                <li><a href="#">Elements</a></li>
+                <li><a href="#">Contact</a></li>
+            </ul>
+        </div>
+    </nav>
+    
+    <!-- Shopping Cart Sidebar -->
+    <div class="cart-sidebar" id="cart-sidebar">
+        <div class="cart-header">
+            <h3>Shopping Cart</h3>
+            <button class="close-cart" id="close-cart">&times;</button>
+        </div>
+        <div class="cart-items" id="cart-items">
+            <!-- Cart items will be dynamically inserted here -->
+        </div>
+        <div class="cart-footer">
+            <div class="cart-total">
+                <span>Total:</span>
+                <span id="sidebar-cart-total">$0.00</span>
+            </div>
+            <button class="checkout-btn">Proceed to Checkout</button>
+            <button class="view-cart-btn">View Cart</button>
+        </div>
+    </div>
+    
+    <div class="wishlist-header">
+        <h1>Your Wishlist</h1>
+        <div class="breadcrumbs">
+            <a href="index.html">Home</a> / <span>Wishlist</span>
+        </div>
+    </div>
+    
+    <div class="wishlist-container">
+        <div class="wishlist-controls">
+            <div class="wishlist-count">
+                <span id="wishlist-total-count">0 items</span> in your wishlist
+            </div>
+            <div class="wishlist-actions">
+                <button class="share-wishlist"><i class="fas fa-share-alt"></i> Share</button>
+                <button class="clear-wishlist"><i class="fas fa-trash"></i> Clear All</button>
+            </div>
+        </div>
+        
+        <div class="wishlist-items" id="wishlist-items">
+            <!-- Wishlist items will be dynamically inserted here -->
+        </div>
+        
+        <div class="wishlist-suggestions">
+            <h3>You may also like</h3>
+            <div class="suggested-products" id="suggested-products">
+                <!-- Suggested products will be dynamically inserted here -->
+            </div>
+        </div>
+    </div>
+    
+    <footer>
+        <div class="hero_footer">
+            <div class="address">
+                <img src="images/logo.jpg" alt="logo">
+                <h4>ByNex Import</h4>                          
+                <div class="info"><i class="fa-solid fa-location-dot"></i>
+                    <h3>Ghana,Greater Accra, Bortianor Hills</h3>
+                </div>
+                <div class="info"><i class="fa-solid fa-phone"></i>
+                    <h3>+233244492296</h3>
+                </div>
+                <div class="info"> <i class="fa-solid fa-envelope"></i>
+                    <h3>bynextimport@gmail.com </h3>
+                </div>
+            </div>
+            <div class="information">
+                <h1>information</h1>
+                <a href="#">about us</a>
+                <a href="#">latest post</a>
+                <a href="#">Selling Tips</a>
+                <a href="#">Advertising</a>
+                <a href="#">Contact Us</a>
+            </div>
+            <div class="information">
+                <h1>My Account</h1>
+                <a href="#">My Account</a>
+                <a href="#">Login/Register</a>
+                <a href="#">Cart</a>
+                <a href="wishlist.html">Wishlist</a>
+                <a href="#">Order History</a>
+            </div>
+            <div class="information">
+                <h1>Help an support</h1>
+                <a href="#">How to shop</a>
+                <a href="#">Payment</a>
+                <a href="#">Returns</a>
+                <a href="#">Delivery</a>
+                <a href="#">Privacy &amp; Cookie Policy</a>
+            </div>
+        </div>
+        <hr>
+        <div class="last-section">
+            <h3 class="copyright-text">© Copyright ByNeX Import. All rights reserved 2025. Designed and Developed by Koffie Morrison</h3>
+            <div class="icons">
+                <i class="fa-brands fa-facebook"></i>
+                <i class="fa-brands fa-twitter"></i>
+                <i class="fa-brands fa-linkedin"></i>
+                <i class="fa-brands fa-youtube"></i>
+                <i class="fa-brands fa-pinterest"></i>
+                <i class="fa-solid fa-wifi"></i>
+            </div>
+            <div class="payment-icons">
+                <img src="./images/payment1.png" alt="">
+                <img src="./images/payment2.png" alt="">
+                <img src="./images/momo-logo.webp" alt="">
+                <img src="./images/tigo.jpg" alt="">
+                <img src="./images/vodacash.jpg" alt="">
+            </div>
+        </div>
+    </footer>
+
+    <script src="shop.js"></script>
+    <script src="wishlist.js"></script>
+    <script>
+        // Mobile menu toggle
+        document.getElementById('menu-toggle').addEventListener('click', function() {
+            document.getElementById('mobile-menu').classList.toggle('active');
+        });
+
+        // Cart toggle
+        document.querySelector('.shop-cart').addEventListener('click', function() {
+            document.getElementById('cart-sidebar').classList.add('open');
+        });
+
+        document.getElementById('close-cart').addEventListener('click', function() {
+            document.getElementById('cart-sidebar').classList.remove('open');
+        });
+
+        // Loader simulation
+        window.addEventListener('load', function() {
+            setTimeout(function() {
+                document.querySelector('.loader-bg').classList.add('hidden');
+                document.querySelector('.loader').classList.add('hidden');
+            }, 1000);
+        });
+    </script>
+</body>
+</html>

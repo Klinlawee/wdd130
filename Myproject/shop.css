@@ -203,33 +203,96 @@ nav {
 }
 
 /* Shop Header */
+/* Shop Header Styles */
 .shop-header {
-    background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('images/shop-banner.jpg');
-    background-size: cover;
-    background-position: center;
+    background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), 
+                url('../images/shop-banner.jpg') center/cover no-repeat;
     color: white;
-    text-align: center;
     padding: 100px 20px;
-    margin-bottom: var(--space-xxl);
+    text-align: center;
+    position: relative;
+    margin-bottom: 40px;
+}
+
+.header-content {
+    max-width: 1200px;
+    margin: 0 auto;
+    position: relative;
+    z-index: 2;
 }
 
 .shop-header h1 {
     font-size: 3rem;
-    margin-bottom: var(--space-md);
+    margin-bottom: 15px;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    animation: fadeInDown 0.8s ease;
+}
+
+.shop-header p {
+    font-size: 1.2rem;
+    margin-bottom: 25px;
+    opacity: 0.9;
+    animation: fadeIn 1s ease;
 }
 
 .breadcrumbs {
     font-size: 1rem;
-    color: #ddd;
+    color: rgba(255, 255, 255, 0.8);
+    animation: fadeIn 1.2s ease;
 }
 
 .breadcrumbs a {
-    color: #ddd;
+    color: rgba(255, 255, 255, 0.8);
     text-decoration: none;
+    transition: color 0.3s;
 }
 
 .breadcrumbs a:hover {
-    color: white;
+    color: var(--primary-color);
+}
+
+/* Animations */
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+@keyframes fadeInDown {
+    from { 
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+    to { 
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+    .shop-header {
+        padding: 80px 20px;
+    }
+    
+    .shop-header h1 {
+        font-size: 2.2rem;
+    }
+    
+    .shop-header p {
+        font-size: 1rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .shop-header {
+        padding: 60px 15px;
+    }
+    
+    .shop-header h1 {
+        font-size: 1.8rem;
+        letter-spacing: 1px;
+    }
 }
 
 /* Shop Container */
@@ -1070,6 +1133,5 @@ footer hr {
         border: 1px solid #ddd;
     }
 }
-/* =============================================
-   Shop Header
-============================================= */
+/* End of CSS */
+/* End of CSS */
