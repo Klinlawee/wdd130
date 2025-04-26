@@ -1,122 +1,8 @@
 // JavaScript code for the shop functionality
 // Sample product data
-const products = [
-    {
-        id: 1,
-        name: "Classic Leather Boots",
-        category: "Men's Footwear",
-        price: 120.00,
-        oldPrice: 150.00,
-        image: "images/men_1.jpg",
-        colors: ["black", "brown"],
-        sizes: [7, 8, 9, 10],
-        brand: "timberland",
-        rating: 4.5,
-        badge: "Sale"
-    },
-    {
-        id: 2,
-        name: "Winter Snow Boots",
-        category: "Women's Footwear",
-        price: 99.99,
-        oldPrice: 129.99,
-        image: "images/men_3.jpg",
-        colors: ["black", "white"],
-        sizes: [5, 6, 7, 8],
-        brand: "nike",
-        rating: 4.2,
-        badge: "New"
-    },
-    {
-        id: 3,
-        name: "Urban Sneakers",
-        category: "Men's Footwear",
-        price: 75.50,
-        image: "images/men_1.jpg",
-        colors: ["black", "blue", "white"],
-        sizes: [7, 8, 9, 10, 11],
-        brand: "adidas",
-        rating: 4.7,
-        badge: "Popular"
-    },
-    {
-        id: 4,
-        name: "Hiking Boots",
-        category: "Men's Footwear",
-        price: 145.00,
-        oldPrice: 180.00,
-        image: "images/women-1.jpg",
-        colors: ["brown"],
-        sizes: [8, 9, 10, 11],
-        brand: "timberland",
-        rating: 4.8,
-        badge: "Sale"
-    },
-    {
-        id: 5,
-        name: "Casual Loafers",
-        category: "Men's Footwear",
-        price: 65.00,
-        image: "images/women-2.jpg",
-        colors: ["black", "brown"],
-        sizes: [7, 8, 9, 10],
-        brand: "clarks",
-        rating: 4.3
-    },
-    {
-        id: 6,
-        name: "Ankle Boots",
-        category: "Women's Footwear",
-        price: 89.99,
-        oldPrice: 110.00,
-        image: "images/women-3.jpg",
-        colors: ["black", "red"],
-        sizes: [5, 6, 7, 8],
-        brand: "puma",
-        rating: 4.1,
-        badge: "Sale"
-    },
-    {
-        id: 7,
-        name: "Running Shoes",
-        category: "Men's Footwear",
-        price: 95.00,
-        image: "images/men-side-pocket.jpg",
-        colors: ["blue", "white"],
-        sizes: [7, 8, 9, 10, 11],
-        brand: "nike",
-        rating: 4.6
-    },
-    {
-        id: 8,
-        name: "Fashion Heels",
-        category: "Women's Footwear",
-        price: 110.00,
-        oldPrice: 135.00,
-        image: "images/women-fashion.jpg",
-        colors: ["black", "red"],
-        sizes: [5, 6, 7],
-        brand: "puma",
-        rating: 4.4,
-        badge: "Sale"
-    },
-    {
-        id: 9,
-        name: "Canvas Sneakers",
-        category: "Women's Footwear",
-        price: 55.00,
-        image: "images/women-red.jpg",
-        colors: ["white", "blue"],
-        sizes: [5, 6, 7, 8],
-        brand: "adidas",
-        rating: 4.0
-    }
-    // ... (keep all your other product objects as they are)
-];
 
 // Cart functionality
 let cart = JSON.parse(localStorage.getItem('cart')) || [];
-let wishlist = [];
 
 // DOM elements
 const productsContainer = document.getElementById('products-container');
@@ -166,7 +52,7 @@ function displayProducts(productsToDisplay) {
                 </div>
                 <div class="product-actions">
                     <button class="add-to-cart" data-id="${product.id}">Add to Cart</button>
-                    <button class="add-to-wishlist" data-id="${product.id}">
+                    <button class="add-to-wishlist" data-id="${product.id}" data-product-id="${product.id}">
                         <i class="far fa-heart"></i>
                     </button>
                     <button class="quick-view" data-id="${product.id}">
@@ -177,6 +63,61 @@ function displayProducts(productsToDisplay) {
         `;
         
         productsContainer.appendChild(productCard);
+    });
+}
+// ====== WISHLIST FUNCTIONALITY ======
+let wishlist = JSON.parse(localStorage.getItem('wishlist')) || [];
+
+function toggleWishlist(productId) {
+    const index = wishlist.indexOf(productId);
+    if (index === -1) {
+        // Add to wishlist
+        wishlist.push(productId);
+    } else {
+        // Remove from wishlist
+        wishlist.splice(index, 1);
+    }
+    
+    // Save to localStorage
+    localStorage.setItem('wishlist', JSON.stringify(wishlist));
+    updateWishlistCount();
+    
+    // Update button appearance
+    const buttons = document.querySelectorAll(`[data-product-id="${productId}"]`);
+    buttons.forEach(button => {
+        button.classList.toggle('active');
+        button.innerHTML = button.classList.contains('active') ? 
+            '<i class="fas fa-heart"></i>' : 
+            '<i class="far fa-heart"></i>';
+    });
+    // Show notification
+    showNotification('Added to wishlist!');
+}
+
+function updateWishlistCount() {
+    const countElements = document.querySelectorAll('#wishlist-count, #wishlist-total-count');
+    countElements.forEach(el => {
+        if (el.id === 'wishlist-count') {
+            el.textContent = wishlist.length;
+        } else if (el) {
+            el.textContent = `${wishlist.length} ${wishlist.length === 1 ? 'item' : 'items'}`;
+        }
+    });
+}
+
+// Initialize wishlist buttons
+function initWishlistButtons() {
+    document.querySelectorAll('.add-to-wishlist').forEach(button => {
+        const productId = parseInt(button.getAttribute('data-id'));
+        if (wishlist.includes(productId)) {
+            button.classList.add('active');
+            button.innerHTML = '<i class="fas fa-heart"></i>';
+        }
+        
+        button.addEventListener('click', (e) => {
+            e.preventDefault();
+            toggleWishlist(productId);
+        });
     });
 }
 
@@ -209,11 +150,15 @@ function setupEventListeners() {
         }
         
         // Add to wishlist
-        if (e.target.classList.contains('add-to-wishlist') || e.target.closest('.add-to-wishlist')) {
-            const button = e.target.classList.contains('add-to-wishlist') ? e.target : e.target.closest('.add-to-wishlist');
-            const productId = parseInt(button.getAttribute('data-id'));
-            addToWishlist(productId);
-        }
+        // Replace the existing addToWishlist function with this:
+function addToWishlist(productId) {
+    toggleWishlist(productId);
+    const product = products.find(p => p.id === productId);
+    if (product) {
+        const isInWishlist = wishlist.includes(productId);
+        showNotification(`${product.name} ${isInWishlist ? 'added to' : 'removed from'} wishlist`);
+    }
+}
         
         // Quick view
         if (e.target.classList.contains('quick-view') || e.target.closest('.quick-view')) {
@@ -486,6 +431,18 @@ window.addEventListener('load', () => {
         loaderBg.classList.add('hidden');
     }
 });
+// Show loader on page load
+// Initialize the shop
+function initShop() {
+    // Load cart and wishlist from localStorage
+    displayProducts(products);
+    setupEventListeners();
+    updateCartCount();
+    updateWishlistCount();
+    initWishlistButtons();
+}
+
+// ... rest of your code ...
 
 // Initialize the shop when DOM is loaded
 document.addEventListener('DOMContentLoaded', initShop);

@@ -83,30 +83,70 @@ document.querySelectorAll('.product-box .fa-cart-shopping').forEach(icon => {
 // =======================
 // Wishlist Functionality
 // =======================
-document.querySelectorAll('.product-box .fa-heart').forEach(icon => {
-    icon.addEventListener('click', () => {
-        wishlistCount++;
-        if (wishlistOutput) {
-            wishlistOutput.textContent = wishlistCount;
+document.querySelectorAll('.product-box .add-to-wishlist').forEach(button => {
+    button.addEventListener('click', (e) => {
+        e.preventDefault();
+        const box = button.closest('.product-box');
+        const name = box.querySelector('p').innerText;
+        const priceText = [...box.querySelectorAll('span')]
+            .find(span => !span.querySelector('strike'))?.innerText || '$0';
+        const price = parseFloat(priceText.replace('$', '')) || 0;
+        const image = box.querySelector('img')?.src || '';
+        const id = 'home-' + name.toLowerCase().replace(/\s+/g, '-') + '-' + Date.now();
+        
+        // Get existing wishlist or create new one
+        let wishlist = JSON.parse(localStorage.getItem('wishlist')) || [];
+        
+        // Check if product already exists in wishlist
+        const existingItem = wishlist.find(item => item.id === id);
+        
+        if (!existingItem) {
+            // Add new item to wishlist
+            wishlist.push({
+                id,
+                name,
+                price,
+                image
+            });
+            
+            // Save to localStorage
+            localStorage.setItem('wishlist', JSON.stringify(wishlist));
+            
+            // Update wishlist count display
+            updateWishlistCount();
+            
+            // Show notification
+            showNotification('Added to wishlist!');
         }
-        localStorage.setItem('wishlistCount', wishlistCount);
-        
-        // Show wishlist notification
-        const notification = document.createElement('div');
-        notification.className = 'notification';
-        notification.textContent = 'Added to wishlist!';
-        document.body.appendChild(notification);
-        
-        setTimeout(() => {
-            notification.classList.add('show');
-            setTimeout(() => {
-                notification.classList.remove('show');
-                setTimeout(() => notification.remove(), 300);
-            }, 2000);
-        }, 10);
     });
 });
 
+// Add this helper function somewhere in your script
+function updateWishlistCount() {
+    const wishlist = JSON.parse(localStorage.getItem('wishlist')) || [];
+    const countElements = document.querySelectorAll('#wishlist-count, #wishlist-total-count');
+    
+    countElements.forEach(el => {
+        if (el.id === 'wishlist-count') {
+            el.textContent = wishlist.length;
+        }
+    });
+}
+
+function showNotification(message) {
+    const notification = document.createElement('div');
+    notification.className = 'notification';
+    notification.textContent = message;
+    document.body.appendChild(notification);
+    
+    setTimeout(() => {
+        notification.classList.add('show');
+        setTimeout(() => {
+            notification.classList.remove('show');
+            setTimeout(() => notification.remove(), 300);
+        }, 2000);
+    }, 10);
+}
 // =======================
 // Navigation Handlers
 // =======================
