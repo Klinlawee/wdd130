@@ -62,24 +62,24 @@
         </div>
     </nav>
     
-    <!-- Shopping Cart Sidebar -->
-    <div class="cart-sidebar" id="cart-sidebar">
-        <div class="cart-header">
-            <h3>Shopping Cart</h3>
-            <button class="close-cart" id="close-cart">&times;</button>
-        </div>
-        <div class="cart-items" id="cart-items">
-            <!-- Cart items will be dynamically inserted here -->
-        </div>
-        <div class="cart-footer">
-            <div class="cart-total">
-                <span>Total:</span>
-                <span id="sidebar-cart-total">$0.00</span>
-            </div>
-            <button class="checkout-btn">Proceed to Checkout</button>
-            <button class="view-cart-btn">View Cart</button>
-        </div>
+   <!-- Shopping Cart Sidebar -->
+<div class="cart-sidebar" id="cart-sidebar">
+    <div class="cart-header">
+        <h3>Shopping Cart</h3>
+        <button class="close-cart" id="close-cart">&times;</button>
     </div>
+    <div class="cart-items" id="cart-items">
+        <!-- Cart items will be dynamically inserted here -->
+    </div>
+    <div class="cart-footer">
+        <div class="cart-total">
+            <span>Total:</span>
+            <span id="sidebar-cart-total">$0.00</span>
+        </div>
+        <button class="checkout-btn" id="proceed-checkout">Proceed to Checkout</button>
+        <button class="view-cart-btn" id="view-full-cart">View Cart</button>
+    </div>
+</div>
     
     <div class="wishlist-header">
         <h1>Your Wishlist</h1>
@@ -195,6 +195,25 @@
                 document.querySelector('.loader').classList.add('hidden');
             }, 1000);
         });
+            // Add event listeners for cart sidebar buttons
+document.getElementById('view-full-cart')?.addEventListener('click', function() {
+    // Close sidebar and redirect to cart page
+    document.getElementById('cart-sidebar').classList.remove('open');
+    window.location.href = 'cart.html';
+});
+
+document.getElementById('proceed-checkout')?.addEventListener('click', function() {
+    const cart = JSON.parse(localStorage.getItem('cart')) || [];
+    
+    if (cart.length === 0) {
+        showNotification('Your cart is empty!');
+        return;
+    }
+    
+    // Close sidebar and redirect to checkout page
+    document.getElementById('cart-sidebar').classList.remove('open');
+    window.location.href = 'checkout.html';
+});
     </script>
 </body>
 </html>
