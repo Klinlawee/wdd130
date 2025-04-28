@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Thank You for Your Order - Metro Boots Shop</title>
+  <style>
+    /* Reuse your existing styles with some additions */
+    :root {
+      --space-xs: 0.25rem;
+      --space-sm: 0.5rem;
+      --space-md: 1rem;
+      --space-lg: 1.5rem;
+      --space-xl: 2rem;
+      --space-xxl: 3rem;
+      --radius-sm: 4px;
+      --radius-md: 8px;
+      --primary-color: #2563eb;
+      --primary-dark: #1d4ed8;
+      --white: #ffffff;
+      --light-gray: #e5e7eb;
+      --bg-color: #f9fafb;
+      --text-color: #111827;
+      --text-light: #6b7280;
+      --success-color: #10b981;
+      --shadow-sm: 0 1px 3px rgba(0,0,0,0.1);
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    body {
+      background-color: var(--bg-color);
+      color: var(--text-color);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: var(--space-lg) var(--space-xxl);
+      background-color: var(--white);
+      box-shadow: var(--shadow-sm);
+    }
+
+    .logo img {
+      height: 50px;
+    }
+
+    .menu {
+      display: flex;
+      list-style: none;
+      gap: var(--space-xl);
+    }
+
+    .menu a {
+      text-decoration: none;
+      color: var(--text-color);
+      font-weight: 500;
+      transition: color var(--transition-fast);
+    }
+
+    .menu a:hover {
+      color: var(--primary-color);
+    }
+
+    .thank-you-container {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: var(--space-xxl);
+      text-align: center;
+    }
+
+    .thank-you-card {
+      background-color: var(--white);
+      border-radius: var(--radius-md);
+      box-shadow: var(--shadow-sm);
+      padding: var(--space-xxl);
+      max-width: 600px;
+      width: 100%;
+    }
+
+    .thank-you-icon {
+      font-size: 4rem;
+      color: var(--success-color);
+      margin-bottom: var(--space-lg);
+    }
+
+    .thank-you-card h1 {
+      font-size: 2rem;
+      margin-bottom: var(--space-md);
+    }
+
+    .thank-you-card p {
+      margin-bottom: var(--space-md);
+      color: var(--text-light);
+    }
+
+    .order-details {
+      background-color: var(--bg-color);
+      border-radius: var(--radius-sm);
+      padding: var(--space-lg);
+      margin: var(--space-lg) 0;
+      text-align: left;
+    }
+
+    .order-details h3 {
+      margin-bottom: var(--space-md);
+    }
+
+    .order-details div {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: var(--space-sm);
+    }
+
+    .continue-shopping {
+      display: inline-block;
+      padding: var(--space-md) var(--space-xl);
+      background-color: var(--primary-color);
+      color: var(--white);
+      border-radius: var(--radius-sm);
+      text-decoration: none;
+      font-weight: 500;
+      margin-top: var(--space-lg);
+      transition: background-color var(--transition-normal);
+    }
+
+    .continue-shopping:hover {
+      background-color: var(--primary-dark);
+    }
+
+    /* Responsive styles */
+    @media (max-width: 768px) {
+      nav {
+        padding: var(--space-md);
+      }
+      
+      .thank-you-container {
+        padding: var(--space-xl) var(--space-md);
+      }
+      
+      .thank-you-card {
+        padding: var(--space-xl);
+      }
+    }
+
+    @media (max-width: 480px) {
+      .menu {
+        gap: var(--space-md);
+      }
+      
+      .thank-you-card h1 {
+        font-size: 1.5rem;
+      }
+      
+      .thank-you-icon {
+        font-size: 3rem;
+      }
+    }
+  </style>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+</head>
+<body>
+  <nav>
+    <div class="logo">
+      <a href="index.html"><img src="images/logo.jpg" alt="Logo"></a>
+    </div>
+    <ul class="menu">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="shop.html">Shop</a></li>
+      <li><a href="cart.html">Cart</a></li>
+    </ul>
+  </nav>
+
+  <main class="thank-you-container">
+    <div class="thank-you-card">
+      <div class="thank-you-icon">
+        <i class="fas fa-check-circle"></i>
+      </div>
+      <h1>Thank You for Your Order!</h1>
+      <p>Your payment was successful and your order is being processed.</p>
+      
+      <div class="order-details">
+        <h3>Order Details</h3>
+        <div>
+          <span>Order Reference:</span>
+          <span id="order-reference">N/A</span>
+        </div>
+        <div>
+          <span>Date:</span>
+          <span id="order-date"></span>
+        </div>
+        <div>
+          <span>Amount Paid:</span>
+          <span id="order-amount"></span>
+        </div>
+      </div>
+      
+      <p>We've sent a confirmation email to your registered address.</p>
+      <p>If you have any questions, please contact our customer support.</p>
+      
+      <a href="shop.html" class="continue-shopping">Continue Shopping</a>
+    </div>
+  </main>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      // Get order details from URL parameters
+      const urlParams = new URLSearchParams(window.location.search);
+      const reference = urlParams.get('reference');
+      
+      // Display order details
+      if (reference) {
+        document.getElementById('order-reference').textContent = reference;
+      }
+      
+      // Set current date
+      const now = new Date();
+      document.getElementById('order-date').textContent = now.toLocaleDateString('en-US', {
+        year: 'numeric',
+        month: 'long',
+        day: 'numeric'
+      });
+      
+      // Try to get amount from localStorage (set during checkout)
+      const orderAmount = localStorage.getItem('lastOrderAmount');
+      if (orderAmount) {
+        document.getElementById('order-amount').textContent = `GH₵${parseFloat(orderAmount).toFixed(2)}`;
+      }
+      
+      // Clear the cart after successful order
+      localStorage.removeItem('cart');
+      
+      // You could also verify the payment with your backend here
+      // verifyPayment(reference);
+    });
+    
+    // Example function to verify payment with your backend
+    /*
+    async function verifyPayment(reference) {
+      try {
+        const response = await fetch(`/verify-payment?reference=${reference}`);
+        const data = await response.json();
+        
+        if (data.success) {
+          // Payment verified successfully
+          console.log('Payment verified:', data);
+        } else {
+          console.error('Payment verification failed:', data.error);
+        }
+      } catch (error) {
+        console.error('Error verifying payment:', error);
+      }
+    }
+    */
+  </script>
+</body>
+</html>
