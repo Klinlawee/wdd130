@@ -64,7 +64,7 @@
       text-decoration: none;
       color: var(--text-color);
       font-weight: 500;
-      transition: color var(--transition-fast);
+      transition: color 0.15s;
     }
 
     .menu a:hover {
@@ -133,7 +133,7 @@
       text-decoration: none;
       font-weight: 500;
       margin-top: var(--space-lg);
-      transition: background-color var(--transition-normal);
+      transition: background-color 0.3s;
     }
 
     .continue-shopping:hover {
@@ -195,7 +195,7 @@
         <h3>Order Details</h3>
         <div>
           <span>Order Reference:</span>
-          <span id="order-reference">N/A</span>
+          <span id="order-reference">Loading...</span>
         </div>
         <div>
           <span>Date:</span>
@@ -203,7 +203,7 @@
         </div>
         <div>
           <span>Amount Paid:</span>
-          <span id="order-amount"></span>
+          <span id="order-amount">Loading...</span>
         </div>
       </div>
       
@@ -223,6 +223,21 @@
       // Display order details
       if (reference) {
         document.getElementById('order-reference').textContent = reference;
+        
+        // Try to get amount from localStorage (set during checkout)
+        const orderAmount = localStorage.getItem('lastOrderAmount');
+        if (orderAmount) {
+          document.getElementById('order-amount').textContent = `GH₵${parseFloat(orderAmount).toFixed(2)}`;
+        } else {
+          // If not in localStorage, try to get from URL
+          const amount = urlParams.get('amount');
+          if (amount) {
+            document.getElementById('order-amount').textContent = `GH₵${parseFloat(amount).toFixed(2)}`;
+          }
+        }
+      } else {
+        document.getElementById('order-reference').textContent = 'Not available';
+        document.getElementById('order-amount').textContent = 'Not available';
       }
       
       // Set current date
@@ -230,40 +245,14 @@
       document.getElementById('order-date').textContent = now.toLocaleDateString('en-US', {
         year: 'numeric',
         month: 'long',
-        day: 'numeric'
+        day: 'numeric',
+        hour: '2-digit',
+        minute: '2-digit'
       });
-      
-      // Try to get amount from localStorage (set during checkout)
-      const orderAmount = localStorage.getItem('lastOrderAmount');
-      if (orderAmount) {
-        document.getElementById('order-amount').textContent = `GH₵${parseFloat(orderAmount).toFixed(2)}`;
-      }
       
       // Clear the cart after successful order
       localStorage.removeItem('cart');
-      
-      // You could also verify the payment with your backend here
-      // verifyPayment(reference);
     });
-    
-    // Example function to verify payment with your backend
-    /*
-    async function verifyPayment(reference) {
-      try {
-        const response = await fetch(`/verify-payment?reference=${reference}`);
-        const data = await response.json();
-        
-        if (data.success) {
-          // Payment verified successfully
-          console.log('Payment verified:', data);
-        } else {
-          console.error('Payment verification failed:', data.error);
-        }
-      } catch (error) {
-        console.error('Error verifying payment:', error);
-      }
-    }
-    */
   </script>
 </body>
 </html>

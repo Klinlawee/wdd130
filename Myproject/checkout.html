@@ -936,11 +936,16 @@
               ]
             },
             callback: function(response) {
+              // Store amount in localStorage
+              const totalAmount = parseFloat(document.getElementById('total').textContent.replace('GH₵', ''));
+              localStorage.setItem('lastOrderAmount', totalAmount);
+              
+              // Redirect with reference AND amount
               showNotification('Payment processed successfully! Reference: ' + response.reference);
               cart = [];
               saveCartToLocalStorage();
               setTimeout(() => {
-                window.location.href = "thankyou.html?reference=" + response.reference;
+                window.location.href = `thankyou.html?reference=${response.reference}&amount=${totalAmount}`;
               }, 2000);
             },
             onClose: function() {
@@ -1011,11 +1016,16 @@
               ]
             },
             callback: function(response) {
+              // Store amount in localStorage
+              const totalAmount = parseFloat(document.getElementById('total').textContent.replace('GH₵', ''));
+              localStorage.setItem('lastOrderAmount', totalAmount);
+              
+              // Redirect with reference AND amount
               showNotification('Mobile Money payment successful! Reference: ' + response.reference);
               cart = [];
               saveCartToLocalStorage();
               setTimeout(() => {
-                window.location.href = "thankyou.html?reference=" + response.reference;
+                window.location.href = `thankyou.html?reference=${response.reference}&amount=${totalAmount}`;
               }, 2000);
             },
             onClose: function() {
