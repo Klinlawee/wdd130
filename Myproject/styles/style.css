@@ -276,7 +276,6 @@ nav {
     cursor: pointer;
 }
 
-/* Mobile Menu Styles */
 /* Mobile Menu */
 .mobile-menu {
     display: none;
@@ -295,10 +294,12 @@ nav {
 }
 
 .mobile-menu-list {
-    list-style: none;
     display: none; /* Start hidden */
+    list-style: none;
     flex-direction: column;
     gap: var(--space-sm);
+    margin: 0;
+    padding: 0;
 }
 
 .mobile-menu-list.active {
@@ -313,6 +314,8 @@ nav {
 .mobile-menu-list li a {
     display: block;
     padding: var(--space-xs) 0;
+    text-decoration: none;
+    color: inherit;
 }
 
 @media (min-width: 993px) {
@@ -320,6 +323,9 @@ nav {
         display: none !important;
     }
 }
+/* =======================
+   Search Bar Styles
+======================= */
 
 /* =======================
    Header/Hero Section

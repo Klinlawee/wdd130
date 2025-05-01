@@ -181,24 +181,41 @@ document.querySelectorAll('.product-box .fa-eye').forEach(icon => {
 // =======================
 // Responsive Menu Toggles
 // =======================
-const menuToggle = document.getElementById('menu-toggle');
-const mobileMenu = document.querySelector('.mobile-menu');
-const mobileMenuList = document.querySelector('.mobile-menu-list');
+// =======================
+// Mobile Menu Functionality(Hamburger Menu)
+// =======================//
+document.addEventListener('DOMContentLoaded', () => {
+    const menuToggle = document.getElementById('menu-toggle');
+    const mobileMenu = document.querySelector('.mobile-menu');
+    const mobileMenuList = document.querySelector('.mobile-menu-list');
 
-if (menuToggle && mobileMenu) {
-    menuToggle.addEventListener('click', (e) => {
-        e.stopPropagation(); // Prevent event bubbling
-        mobileMenuList.classList.toggle('active');
-    });
+    if (menuToggle && mobileMenu && mobileMenuList) {
+        // Toggle menu when clicking the hamburger icon
+        menuToggle.addEventListener('click', (e) => {
+            e.stopPropagation();
+            mobileMenuList.classList.toggle('active');
+            mobileMenu.classList.toggle('active');
+        });
 
-    // Close menu when clicking outside
-    document.addEventListener('click', (e) => {
-        if (!e.target.closest('.mobile-menu') && !e.target.closest('#menu-toggle')) {
-            mobileMenuList.classList.remove('active');
-        }
-    });
-}
+        // Close menu when clicking outside
+        document.addEventListener('click', (e) => {
+            if (!e.target.closest('.mobile-menu') && 
+                !e.target.closest('#menu-toggle') &&
+                !e.target.classList.contains('bars')) {
+                mobileMenuList.classList.remove('active');
+                mobileMenu.classList.remove('active');
+            }
+        });
 
+        // Close menu when clicking a menu item (optional)
+        mobileMenuList.addEventListener('click', (e) => {
+            if (e.target.tagName === 'A') {
+                mobileMenuList.classList.remove('active');
+                mobileMenu.classList.remove('active');
+            }
+        });
+    }
+});
 // =======================
 // Page Loader
 // =======================
