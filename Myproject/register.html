@@ -1,0 +1,655 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Create a new ByNeX Import account">
+    <title>Register | ByNeX Import</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        /* Reuse your existing styles with some additions */
+        :root {
+            --space-xs: 4px;
+            --space-sm: 8px;
+            --space-md: 16px;
+            --space-lg: 24px;
+            --space-xl: 32px;
+            --space-xxl: 48px;
+            --radius-sm: 4px;
+            --radius-md: 8px;
+            --primary-color: #007bff;
+            --primary-dark: #0056b3;
+            --text-color: #333;
+            --text-light: #888;
+            --white: #fff;
+            --gray: #ccc;
+            --bg-color: #f8f8f8;
+            --bg-light: #f1f1f1;
+            --shadow-sm: 0 2px 5px rgba(0,0,0,0.1);
+            --transition-fast: 0.2s ease;
+            --transition-normal: 0.4s ease;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-color);
+        }
+
+        /* Navigation - matches your existing nav */
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: var(--space-md) var(--space-lg);
+            background-color: var(--white);
+            box-shadow: var(--shadow-sm);
+            flex-wrap: wrap;
+        }
+
+        .logo img {
+            height: 50px;
+        }
+
+        .menu {
+            display: flex;
+            gap: var(--space-lg);
+            list-style: none;
+        }
+
+        .menu li a {
+            text-decoration: none;
+            color: var(--text-color);
+            font-weight: 500;
+        }
+
+        .menu li a:hover {
+            color: red;
+            text-decoration: underline;
+        }
+
+        .icons-sec {
+            display: flex;
+            align-items: center;
+            gap: var(--space-sm);
+        }
+
+        .shop-cart {
+            position: relative;
+            font-size: 1.5rem;
+            transition: all 0.3s ease;
+        }
+
+        .shop-cart:hover {
+            color: red;
+            transform: scale(1.1);
+            cursor: pointer;
+        }
+
+        .shop-cart span {
+            position: absolute;
+            top: -10px;
+            right: -10px;
+            background: var(--primary-color);
+            color: white;
+            font-size: 0.75rem;
+            padding: 2px 6px;
+            border-radius: 50%;
+        }
+
+        /* Register Container */
+        .register-container {
+            max-width: 500px;
+            margin: var(--space-xl) auto;
+            padding: var(--space-xl);
+            background-color: var(--white);
+            border-radius: var(--radius-md);
+            box-shadow: var(--shadow-sm);
+        }
+
+        .register-header {
+            text-align: center;
+            margin-bottom: var(--space-xl);
+        }
+
+        .register-header h1 {
+            font-size: 2rem;
+            color: var(--text-color);
+            margin-bottom: var(--space-sm);
+        }
+
+        .register-header p {
+            color: var(--text-light);
+        }
+
+        .register-form .form-group {
+            margin-bottom: var(--space-lg);
+        }
+
+        .register-form label {
+            display: block;
+            margin-bottom: var(--space-sm);
+            font-weight: 600;
+            color: var(--text-color);
+        }
+
+        .register-form input {
+            width: 100%;
+            padding: var(--space-md);
+            border: 1px solid var(--gray);
+            border-radius: var(--radius-md);
+            font-size: 1rem;
+            transition: border var(--transition-fast);
+        }
+
+        .register-form input:focus {
+            border-color: var(--primary-color);
+            outline: none;
+        }
+
+        .name-fields {
+            display: flex;
+            gap: var(--space-md);
+        }
+
+        .name-fields .form-group {
+            flex: 1;
+        }
+
+    .terms {
+    display: flex;
+    align-items: center;
+    gap: var(--space-sm);
+    margin-bottom: var(--space-lg);
+    padding: var(--space-sm);
+    background-color: var(--bg-light);
+    border-radius: var(--radius-md);
+}
+
+.terms input[type="checkbox"] {
+    appearance: none;
+    -webkit-appearance: none;
+    width: 18px;
+    height: 18px;
+    border: 2px solid var(--gray);
+    border-radius: var(--radius-sm);
+    cursor: pointer;
+    position: relative;
+    transition: all var(--transition-fast);
+    flex-shrink: 0;
+}
+
+.terms input[type="checkbox"]:checked {
+    background-color: var(--primary-color);
+    border-color: var(--primary-color);
+}
+
+.terms input[type="checkbox"]:checked::after {
+    content: "✓";
+    position: absolute;
+    color: white;
+    font-size: 12px;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.terms input[type="checkbox"]:focus {
+    outline: 2px solid var(--primary-color);
+    outline-offset: 2px;
+}
+
+.terms label {
+    font-weight: normal;
+    font-size: 0.9rem;
+    color: var(--text-color);
+    cursor: pointer;
+    line-height: 1.4;
+}
+
+.terms a {
+    color: var(--primary-color);
+    text-decoration: none;
+    font-weight: 600;
+    transition: color var(--transition-fast);
+}
+
+.terms a:hover {
+    color: var(--primary-dark);
+    text-decoration: underline;
+}
+
+        .register-btn {
+            width: 100%;
+            padding: var(--space-md);
+            background-color: var(--primary-color);
+            color: var(--white);
+            border: none;
+            border-radius: var(--radius-md);
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background-color var(--transition-normal);
+            margin-bottom: var(--space-lg);
+        }
+
+        .register-btn:hover {
+            background-color: var(--primary-dark);
+        }
+
+        .social-register {
+            margin: var(--space-xl) 0;
+            text-align: center;
+        }
+
+        .social-register p {
+            color: var(--text-light);
+            margin-bottom: var(--space-lg);
+            position: relative;
+        }
+
+        .social-register p::before,
+        .social-register p::after {
+            content: "";
+            display: inline-block;
+            width: 30%;
+            height: 1px;
+            background-color: var(--gray);
+            position: absolute;
+            top: 50%;
+        }
+
+        .social-register p::before {
+            left: 0;
+        }
+
+        .social-register p::after {
+            right: 0;
+        }
+
+        .social-icons {
+            display: flex;
+            justify-content: center;
+            gap: var(--space-md);
+        }
+
+        .social-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: transform var(--transition-normal);
+            color: var(--white);
+        }
+
+        .social-icon:hover {
+            transform: translateY(-3px);
+        }
+
+        .facebook {
+            background-color: #3b5998;
+        }
+
+        .google {
+            background-color: #db4437;
+        }
+
+        .apple {
+            background-color: #000;
+        }
+
+        .login-link {
+            text-align: center;
+            color: var(--text-light);
+        }
+
+        .login-link a {
+            color: var(--primary-color);
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        .login-link a:hover {
+            text-decoration: underline;
+        }
+
+        /* Footer - matches your existing footer */
+        footer {
+            background: #333;
+            color: #ccc;
+            padding: var(--space-xxl) var(--space-xxl) var(--space-xl);
+            font-size: 14px;
+            line-height: 1.5;
+        }
+
+        .hero_footer {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: var(--space-xl);
+            margin-bottom: var(--space-lg);
+        }
+
+        .address {
+            flex: 1;
+            min-width: 200px;
+        }
+
+        .address img {
+            width: 100px;
+            margin-bottom: var(--space-md);
+        }
+
+        .address h4 {
+            font-size: 1rem;
+            color: var(--white);
+            margin-bottom: var(--space-md);
+        }
+
+        .info {
+            display: flex;
+            align-items: flex-start;
+            gap: var(--space-sm);
+            margin-bottom: var(--space-sm);
+        }
+
+        .info i {
+            margin-top: 3px;
+        }
+
+        .info h3 {
+            font-size: 0.875rem;
+            font-weight: 300;
+        }
+
+        .information {
+            flex: 1;
+            min-width: 160px;
+        }
+
+        .information h1 {
+            font-size: 1rem;
+            color: var(--white);
+            margin-bottom: var(--space-md);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .information a {
+            display: block;
+            color: var(--gray);
+            margin-bottom: var(--space-xs);
+            font-size: 0.875rem;
+            transition: color var(--transition-fast);
+        }
+
+        .information a:hover {
+            color: var(--white);
+            text-decoration: underline;
+        }
+
+        footer hr {
+            margin: var(--space-xl) 0;
+            border: none;
+            border-top: 1px solid #444;
+        }
+
+        .last-section {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: var(--space-md);
+            text-align: center;
+        }
+
+        .copyright-text {
+            font-size: 0.875rem;
+            color: #9e9e9e;
+            margin-bottom: var(--space-md);
+        }
+
+        .icons {
+            display: flex;
+            gap: var(--space-sm);
+            margin-bottom: var(--space-md);
+        }
+
+        .icons i {
+            font-size: 1rem;
+            color: #9e9e9e;
+            transition: color var(--transition-fast);
+        }
+
+        .icons i:hover {
+            color: var(--white);
+        }
+
+        .payment-icons {
+            display: flex;
+            gap: var(--space-sm);
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .payment-icons img {
+            height: 24px;
+            object-fit: contain;
+        }
+
+        /* Responsive styles */
+        @media (max-width: 768px) {
+            nav {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: var(--space-sm);
+            }
+
+            .menu {
+                flex-direction: column;
+                gap: var(--space-sm);
+            }
+
+            .register-container {
+                padding: var(--space-lg);
+                margin: var(--space-lg);
+            }
+
+            .name-fields {
+                flex-direction: column;
+                gap: var(--space-lg);
+            }
+
+            .hero_footer {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 480px) {
+            .register-container {
+                padding: var(--space-md);
+                margin: var(--space-md);
+            }
+
+            .register-header h1 {
+                font-size: 1.5rem;
+            }
+
+            .hero_footer {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <div class="logo">
+            <a href="index.html"><img src="images/logo.jpg" alt="ByNeX Import Logo"></a>
+        </div>
+        <ul class="menu">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="shop.html">Shop</a></li>
+            <li><a href="cart.html">Cart</a></li>
+        </ul>
+        <div class="icons-sec">
+            <i class="fa-solid fa-cart-shopping shop-cart"><span>0</span></i>
+        </div>
+    </nav>
+
+    <div class="register-container">
+        <div class="register-header">
+            <h1>Create Account</h1>
+            <p>Join ByNeX Import to start shopping today</p>
+        </div>
+
+        <form class="register-form" id="registerForm">
+            <div class="name-fields">
+                <div class="form-group">
+                    <label for="first-name">First Name</label>
+                    <input type="text" id="first-name" name="first_name" required placeholder="Enter your first name">
+                </div>
+                <div class="form-group">
+                    <label for="last-name">Last Name</label>
+                    <input type="text" id="last-name" name="last_name" required placeholder="Enter your last name">
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="email">Email Address</label>
+                <input type="email" id="email" name="email" required placeholder="Enter your email">
+            </div>
+
+            <div class="form-group">
+                <label for="password">Password</label>
+                <input type="password" id="password" name="password" required placeholder="Create a password">
+            </div>
+
+            <div class="form-group">
+                <label for="confirm-password">Confirm Password</label>
+                <input type="password" id="confirm-password" name="confirm_password" required placeholder="Confirm your password">
+            </div>
+
+            <div class="terms">
+                <input type="checkbox" id="terms" name="terms" required>
+                <label for="terms">I agree to the <a href="terms.html">Terms of Service</a> and <a href="privacy.html">Privacy Policy</a></label>
+            </div>
+
+            <button type="submit" class="register-btn">Create Account</button>
+        </form>
+
+        <div class="social-register">
+            <p>Or sign up with</p>
+            <div class="social-icons">
+                <div class="social-icon facebook">
+                    <i class="fab fa-facebook-f"></i>
+                </div>
+                <div class="social-icon google">
+                    <i class="fab fa-google"></i>
+                </div>
+                <div class="social-icon apple">
+                    <i class="fab fa-apple"></i>
+                </div>
+            </div>
+        </div>
+
+        <div class="login-link">
+            Already have an account? <a href="login.html">Sign in</a>
+        </div>
+    </div>
+
+    <footer>
+        <div class="hero_footer">
+            <div class="address">
+                <img src="images/logo.jpg" alt="logo">
+                <h4>ByNex Import</h4>                          
+                <div class="info"><i class="fa-solid fa-location-dot"></i>
+                    <h3>Ghana,Greater Accra, Bortianor Hills</h3>
+                </div>
+                <div class="info"><i class="fa-solid fa-phone"></i>
+                    <h3>+233244492296</h3>
+                </div>
+                <div class="info"> <i class="fa-solid fa-envelope"></i>
+                    <h3>bynextimport@gmail.com</h3>
+                </div>
+            </div>
+            <div class="information">
+                <h1>information</h1>
+                <a href="#">about us</a>
+                <a href="#">latest post</a>
+                <a href="#">Selling Tips</a>
+                <a href="#">Advertising</a>
+                <a href="#">Contact Us</a>
+            </div>
+            <div class="information">
+                <h1>My Account</h1>
+                <a href="#">My Account</a>
+                <a href="login.html">Login/Register</a>
+                <a href="cart.html">Cart</a>
+                <a href="wishlist.html">Wishlist</a>
+                <a href="#">Order History</a>
+            </div>
+            <div class="information">
+                <h1>Help an support</h1>
+                <a href="#">How to shop</a>
+                <a href="#">Payment</a>
+                <a href="#">Returns</a>
+                <a href="#">Delivery</a>
+                <a href="#">Privacy &amp; Cookie Policy</a>
+            </div>
+        </div>
+        <hr>
+        <div class="last-section">
+            <h3 class="copyright-text">© Copyright ByNeX Import. All rights reserved 2025. Designed and Developed by Koffie Morrison</h3>
+            <div class="icons">
+                <i class="fa-brands fa-facebook"></i>
+                <i class="fa-brands fa-twitter"></i>
+                <i class="fa-brands fa-linkedin"></i>
+                <i class="fa-brands fa-youtube"></i>
+                <i class="fa-brands fa-pinterest"></i>
+                <i class="fa-solid fa-wifi"></i>
+            </div>
+            <div class="payment-icons">
+                <img src="./images/payment1.png" alt="">
+                <img src="./images/payment2.png" alt="">
+                <img src="./images/momo-logo.webp" alt="">
+                <img src="./images/tigo.jpg" alt="">
+                <img src="./images/vodacash.jpg" alt="">
+            </div>
+        </div>
+    </footer>
+  <script>
+    document.getElementById('registerForm').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const formData = {
+        firstName: document.getElementById('first-name').value,
+        lastName: document.getElementById('last-name').value,
+        email: document.getElementById('email').value,
+        password: document.getElementById('password').value,
+      };
+  
+      try {
+        const response = await fetch('http://localhost:5000/api/register', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(formData),
+        });
+        const data = await response.json();
+        if (response.ok) {
+          alert('Registration successful! Redirecting to login...');
+          window.location.href = 'login.html';
+        } else {
+          alert(data.error || 'Registration failed');
+        }
+      } catch (err) {
+        alert('Network error. Please try again.');
+      }
+    });
+  </script>
+</body>
+</html>

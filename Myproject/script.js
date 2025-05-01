@@ -11,8 +11,6 @@ const cartCountEls = document.querySelectorAll('.shop-cart span');
 const wishlistOutput = document.getElementById('wishlist-count');
 const bars = document.querySelector('.bars');
 const menu = document.querySelector('.menu');
-const mobileMenu = document.querySelector('.mobile-menu');
-const menuToggle = document.getElementById('menu-toggle');
 
 // =======================
 // Cart Functions
@@ -183,23 +181,21 @@ document.querySelectorAll('.product-box .fa-eye').forEach(icon => {
 // =======================
 // Responsive Menu Toggles
 // =======================
-if (bars && menu) {
-    bars.addEventListener('click', () => {
-        menu.classList.toggle('active');
-        // Close mobile menu if open
-        mobileMenu.querySelector('.mobile-menu-list').classList.remove('active');
-    });
-}
+const menuToggle = document.getElementById('menu-toggle');
+const mobileMenu = document.querySelector('.mobile-menu');
+const mobileMenuList = document.querySelector('.mobile-menu-list');
 
 if (menuToggle && mobileMenu) {
-    const mobileMenuList = mobileMenu.querySelector('.mobile-menu-list');
-    mobileMenuList.classList.add('hidden');
-    
-    menuToggle.addEventListener('click', () => {
+    menuToggle.addEventListener('click', (e) => {
+        e.stopPropagation(); // Prevent event bubbling
         mobileMenuList.classList.toggle('active');
-        mobileMenuList.classList.toggle('hidden');
-        // Close desktop menu if open
-        menu.classList.remove('active');
+    });
+
+    // Close menu when clicking outside
+    document.addEventListener('click', (e) => {
+        if (!e.target.closest('.mobile-menu') && !e.target.closest('#menu-toggle')) {
+            mobileMenuList.classList.remove('active');
+        }
     });
 }
 

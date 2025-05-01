@@ -476,3 +476,52 @@ document.querySelector('.clear-cart-btn')?.addEventListener('click', function ()
 //Morrison new update
 
 Don't change this code because it work perfectly for my shop page. I want you to add a script that will render product added cart to show in cart page
+
+Update implementation on Backend
+
+Running the Application
+Start MongoDB server
+
+Create .env file with your configuration
+
+Install dependencies: npm install
+
+Start the server: npm run dev (with nodemon) or node server.js
+
+Key Features Implemented
+User Authentication
+
+Registration and login with JWT
+
+Protected routes
+
+Role-based authorization (user/admin)
+
+Product Management
+
+CRUD operations for products
+
+Filtering, sorting, and pagination
+
+Image upload
+
+Shopping Cart
+
+Add/remove items
+
+Update quantities
+
+Persist across sessions
+
+Order Processing
+
+Create orders from cart
+
+Payment processing
+
+Order status tracking
+
+New chat
+ 
+
+

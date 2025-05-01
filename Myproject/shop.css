@@ -203,6 +203,7 @@ nav {
 }
 
 /* Mobile Menu */
+/* Mobile Menu */
 .mobile-menu {
     display: none;
     position: absolute;
@@ -221,9 +222,13 @@ nav {
 
 .mobile-menu-list {
     list-style: none;
-    display: flex;
+    display: none; /* Start hidden */
     flex-direction: column;
     gap: var(--space-sm);
+}
+
+.mobile-menu-list.active {
+    display: flex;
 }
 
 .mobile-menu-list li {
@@ -234,6 +239,12 @@ nav {
 .mobile-menu-list li a {
     display: block;
     padding: var(--space-xs) 0;
+}
+
+@media (min-width: 993px) {
+    .mobile-menu {
+        display: none !important;
+    }
 }
 /* Shop Header */
 /* Shop Header Styles */

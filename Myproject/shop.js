@@ -29,7 +29,24 @@ function initShop() {
     updateCartCount();
     updateWishlistCount();
 }
+// Mobile menu toggle
+const menuToggle = document.getElementById('menu-toggle');
+const mobileMenu = document.querySelector('.mobile-menu');
+const mobileMenuList = document.querySelector('.mobile-menu-list');
 
+if (menuToggle && mobileMenu) {
+    menuToggle.addEventListener('click', (e) => {
+        e.stopPropagation(); // Prevent event bubbling
+        mobileMenuList.classList.toggle('active');
+    });
+
+    // Close menu when clicking outside
+    document.addEventListener('click', (e) => {
+        if (!e.target.closest('.mobile-menu') && !e.target.closest('#menu-toggle')) {
+            mobileMenuList.classList.remove('active');
+        }
+    });
+}
 // Display products
 function displayProducts(productsToDisplay) {
     productsContainer.innerHTML = '';
