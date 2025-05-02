@@ -107,12 +107,10 @@
             <div class="sidebar-section">
                 <h3>Filter by Price</h3>
                 <div class="price-range">
-                    <input type="range" min="0" max="1000" value="500" class="slider" id="price-range">
-                    <div class="price-values">
-                        <span>$0</span>
-                        <span>$1000</span>
-                    </div>
-                    <button class="filter-btn">Filter</button>
+                    <label for="price-range">Price Range:</label>
+                    <input type="range" id="price-range" min="0" max="1000" step="10" value="1000" title="Adjust the price range">
+                    <button class="filter-btn">Apply</button>
+                    <!-- The price display will be inserted by JavaScript -->
                 </div>
             </div>
 
@@ -131,15 +129,19 @@
             <div class="sidebar-section">
                 <h3>Color</h3>
                 <div class="color-options">
-                    <span class="color-box black" data-color="black"></span>
-                    <span class="color-box brown" data-color="brown"></span>
-                    <span class="color-box white" data-color="white"></span>
-                    <span class="color-box red" data-color="red"></span>
-                    <span class="color-box blue" data-color="blue"></span>
+                    <div class="color-box" data-color="red" style="background-color: red"></div>
+                    <div class="color-box" data-color="blue" style="background-color: blue"></div>
+                    <div class="color-box" data-color="green" style="background-color: green"></div>
+                    <div class="color-box" data-color="black" style="background-color: black"></div>
+                    <div class="color-box" data-color="white" style="background-color: white"></div>
+                    <div class="color-box" data-color="yellow" style="background-color: yellow"></div>
+                    <div class="color-box" data-color="pink" style="background-color: pink"></div>
+                    <!-- More colors... -->
                 </div>
             </div>
 
             <div class="sidebar-section">
+                <button class="clear-filters-btn">Clear All Filters</button>
                 <h3>Brand</h3>
                 <div class="brand-options">
                     <label><input type="checkbox" name="brand" value="nike"> Nike</label>
@@ -147,6 +149,7 @@
                     <label><input type="checkbox" name="brand" value="puma"> Puma</label>
                     <label><input type="checkbox" name="brand" value="timberland"> Timberland</label>
                     <label><input type="checkbox" name="brand" value="clarks"> Clarks</label>
+                    <label><input type="checkbox" name="brand" value="reebok"> Reebok</label>
                 </div>
             </div>
         </aside>
@@ -168,6 +171,10 @@
                     <span class="grid-view active" data-view="grid"><i class="fas fa-th"></i></span>
                     <span class="list-view" data-view="list"><i class="fas fa-list"></i></span>
                 </div>
+                <div class="product-count">
+                    Showing <span id="showing-count">0</span> of <span id="total-count">0</span> products
+                </div>
+
             </div>
 
             <div class="products-grid" id="products-container">

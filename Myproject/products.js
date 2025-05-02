@@ -1,17 +1,22 @@
 window.products = [
     {
-        id: 1,
+            id: 1,
         name: "Classic Leather Boots",
         category: "Men's Footwear",
-        price: 120.00,
+        price: 500.00,
         oldPrice: 150.00,
-        images: ["images/men_1.jpg", "images/men__alt1.jpg", "images/men_1_alt2.jpg"],// Add more images if needed
+        image: "images/men_2.jpg", // grid image
+        images: [
+            "images/men_3.jpg",       // 1st preview image
+            "images/men_4.jpg",  // 2nd preview image
+            "images/men_5.jpg"   // 3rd preview image
+        ],
         colors: ["black", "brown"],
         sizes: [7, 8, 9, 10],
         brand: "timberland",
         rating: 4.5,
         badge: "Sale"
-    },
+    }, 
     {
         id: 2,
         name: "Winter Snow Boots",

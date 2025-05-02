@@ -476,8 +476,54 @@
             </div>
         </div>
     </footer>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            loadCartFromLocalStorage();
+            updateCartCount(); // optional, to update cart icon count
+            // Call renderCartItems() or renderCheckoutItems() here if needed
+        });
+    </script>
     
     <script src="script.js"></script>
+    <!-- Product Preview Modal -->
+<!-- Product Preview Modal -->
+<div class="modal" id="productPreviewModal">
+    <div class="modal-content">
+        <button class="close-modal">&times;</button>
+        <div class="quick-view-product">
+            <div class="product-image">
+                <img id="previewProductImage" src="" alt="">
+                <div class="image-gallery-controls">
+                    <button class="prev-image" title="Previous Image"><i class="fas fa-chevron-left"></i></button>
+                    <button class="next-image" title="Next Image"><i class="fas fa-chevron-right"></i></button>
+                    <button class="view-more-images">
+                        <i class="fas fa-images"></i> View More
+                    </button>
+                </div>
+                <div class="image-thumbnails">
+                    <!-- Thumbnails will be added dynamically -->
+                </div>
+            </div>
+            <div class="product-details">
+                <h2 id="previewProductName"></h2>
+                <div class="price-container">
+                    <span id="previewProductPrice"></span>
+                    <strike id="previewProductOldPrice"></strike>
+                    <span id="previewProductDiscount" class="product-off"></span>
+                </div>
+                <p id="previewProductDescription">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+                <div class="product-actions">
+                    <button class="add-to-cart">
+                        <i class="fa-solid fa-cart-shopping"></i> Add to Cart
+                    </button>
+                    <button class="add-to-wishlist">
+                        <i class="far fa-heart"></i> Wishlist
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 </body>
 
 </html>

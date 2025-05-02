@@ -253,3 +253,188 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 // ======================= Product Preview functionality =======================//
+// ======================= Product Preview functionality =======================//
+document.addEventListener('DOMContentLoaded', () => {
+    // Initialize product preview modal
+    const productPreviewModal = document.getElementById('productPreviewModal');
+    const closeModalBtn = document.querySelector('.close-modal');
+    
+    // Close modal when clicking close button
+    closeModalBtn.addEventListener('click', () => {
+        productPreviewModal.classList.remove('active');
+    });
+    
+    // Close modal when clicking outside content
+    productPreviewModal.addEventListener('click', (e) => {
+        if (e.target === productPreviewModal) {
+            productPreviewModal.classList.remove('active');
+        }
+    });
+
+    // Sample product data with multiple images (in a real app, this would come from a database)
+    const productData = {
+        "Shirt": {
+            name: "Shirt",
+            price: "$40.00",
+            oldPrice: "$56.00",
+            discount: "-29%",
+            description: "Stylish and comfortable shirt for all occasions.",
+            images: [
+                "images/shirt-top.jpg",
+                "images/shirt-alt1.jpg", // These would be actual additional images
+                "images/shirt-alt2.jpg"
+            ]
+        },
+        "Sun Glass": {
+            name: "Sun Glass",
+            price: "$5.00",
+            oldPrice: "$10.00",
+            discount: "-50%",
+            description: "Premium quality sunglasses with UV protection.",
+            images: [
+                "images/spectacle.jpg",
+                "images/spectacle-alt1.jpg",
+                "images/spectacle-alt2.jpg"
+            ]
+        },
+        // Add data for other products similarly
+    };
+
+    // Quick View button functionality
+    document.querySelectorAll('.product-box .fa-eye').forEach(icon => {
+        icon.addEventListener('click', (e) => {
+            e.preventDefault();
+            const box = icon.closest('.product-box');
+            const productName = box.querySelector('p').innerText;
+            const product = productData[productName] || {
+                name: productName,
+                price: box.querySelector('span:not([class]):not(strike)').innerText,
+                oldPrice: box.querySelector('strike')?.innerText || '',
+                discount: box.querySelector('.product-off')?.innerText || '',
+                description: "Product details not available.",
+                images: [
+                    box.querySelector('img').src
+                ]
+            };
+
+            // Set modal content
+            document.getElementById('previewProductName').textContent = product.name;
+            document.getElementById('previewProductPrice').textContent = product.price;
+            document.getElementById('previewProductOldPrice').textContent = product.oldPrice;
+            document.getElementById('previewProductDiscount').textContent = product.discount;
+            document.getElementById('previewProductDescription').textContent = product.description;
+            
+            // Set main image
+            const mainImage = document.getElementById('previewProductImage');
+            mainImage.src = product.images[0];
+            mainImage.alt = product.name;
+            
+            // Set up gallery thumbnails
+            const thumbnailsContainer = document.querySelector('.image-thumbnails');
+            thumbnailsContainer.innerHTML = '';
+            
+            product.images.forEach((imgSrc, index) => {
+                const thumbnail = document.createElement('img');
+                thumbnail.src = imgSrc;
+                thumbnail.alt = `${product.name} - ${index + 1}`;
+                thumbnail.dataset.index = index;
+                if (index === 0) thumbnail.classList.add('active');
+                
+                thumbnail.addEventListener('click', () => {
+                    // Update main image
+                    mainImage.src = imgSrc;
+                    // Update active thumbnail
+                    document.querySelectorAll('.image-thumbnails img').forEach(img => {
+                        img.classList.remove('active');
+                    });
+                    thumbnail.classList.add('active');
+                });
+                
+                thumbnailsContainer.appendChild(thumbnail);
+            });
+            
+            // Gallery navigation controls
+            document.querySelector('.prev-image').addEventListener('click', () => {
+                const activeIndex = parseInt(document.querySelector('.image-thumbnails img.active')?.dataset.index || 0);
+                const prevIndex = (activeIndex - 1 + product.images.length) % product.images.length;
+                document.querySelector(`.image-thumbnails img[data-index="${prevIndex}"]`).click();
+            });
+            
+            document.querySelector('.next-image').addEventListener('click', () => {
+                const activeIndex = parseInt(document.querySelector('.image-thumbnails img.active')?.dataset.index || 0);
+                const nextIndex = (activeIndex + 1) % product.images.length;
+                document.querySelector(`.image-thumbnails img[data-index="${nextIndex}"]`).click();
+            });
+            
+            // Toggle gallery view
+            document.querySelector('.view-more-images').addEventListener('click', () => {
+                thumbnailsContainer.classList.toggle('active');
+            });
+            
+            // Show modal
+            productPreviewModal.classList.add('active');
+        });
+    });
+
+    // Add to cart from preview modal
+    document.querySelector('.modal .add-to-cart').addEventListener('click', () => {
+        const name = document.getElementById('previewProductName').textContent;
+        const priceText = document.getElementById('previewProductPrice').textContent;
+        const price = parseFloat(priceText.replace('$', '')) || 0;
+        const image = document.getElementById('previewProductImage').src;
+        const id = 'preview-' + name.toLowerCase().replace(/\s+/g, '-') + '-' + Date.now();
+
+        // Check if item already exists in cart
+        const existingItem = cart.find(item => item.id === id);
+        if (existingItem) {
+            existingItem.quantity += 1;
+        } else {
+            cart.push({
+                id,
+                name,
+                price,
+                image,
+                quantity: 1
+            });
+        }
+
+        saveCartToLocalStorage();
+        updateCartCount();
+        showNotification(`${name} added to cart!`);
+    });
+
+    // Add to wishlist from preview modal
+    document.querySelector('.modal .add-to-wishlist').addEventListener('click', () => {
+        const name = document.getElementById('previewProductName').textContent;
+        const priceText = document.getElementById('previewProductPrice').textContent;
+        const price = parseFloat(priceText.replace('$', '')) || 0;
+        const image = document.getElementById('previewProductImage').src;
+        const id = 'preview-' + name.toLowerCase().replace(/\s+/g, '-') + '-' + Date.now();
+        
+        let wishlist = JSON.parse(localStorage.getItem('wishlist')) || [];
+        
+        // Check if product already exists in wishlist
+        const existingItem = wishlist.find(item => item.id === id);
+        
+        if (!existingItem) {
+            // Add new item to wishlist
+            wishlist.push({
+                id,
+                name,
+                price,
+                image
+            });
+            
+            // Save to localStorage
+            localStorage.setItem('wishlist', JSON.stringify(wishlist));
+            
+            // Update wishlist count display
+            updateWishlistCount();
+            
+            // Show notification
+            showNotification('Added to wishlist!');
+        } else {
+            showNotification('Already in wishlist!');
+        }
+    });
+});

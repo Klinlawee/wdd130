@@ -65,8 +65,6 @@ body {
     line-height: 1.6;
 }
 
-/* Preview styling */
-
 /* =======================
    Typography
 ======================= */
@@ -129,9 +127,10 @@ a {
 .section {
     padding: var(--space-xxl) 0;
 }
-/* ======================   ===
+
+/* =======================
    Notification Styles
- */
+======================= */
 .notification {
     position: fixed;
     bottom: 20px;
@@ -150,23 +149,26 @@ a {
     transform: translateY(0);
     opacity: 1;
 }
+
 /* Wishlist hover effect */
 a .fa-heart {
     cursor: pointer;
-  }
-  a:hover .fa-heart {
-    color: red; /* or whatever your hover color should be */
-  }
-  /* Cart hover effect */
-  .shop-cart {
-    transition: all 0.3s ease;
-  }
-  
-  .shop-cart:hover {
+}
+
+a:hover .fa-heart {
     color: red;
-    transform: scale(1.1); /* Slightly enlarges the icon */
+}
+
+/* Cart hover effect */
+.shop-cart {
+    transition: all 0.3s ease;
+}
+
+.shop-cart:hover {
+    color: red;
+    transform: scale(1.1);
     cursor: pointer;
-  }
+}
 
 /* =======================
    Loader Styles
@@ -296,7 +298,7 @@ nav {
 }
 
 .mobile-menu-list {
-    display: none; /* Start hidden */
+    display: none;
     list-style: none;
     flex-direction: column;
     gap: var(--space-sm);
@@ -325,81 +327,73 @@ nav {
         display: none !important;
     }
 }
-/* =======================
-   Search Bar Styles
-======================= */
 
 /* =======================
    Header/Hero Section
 ======================= */
-/* Style the header to use Flexbox for side-by-side layout */
 header {
     display: flex;
     align-items: center;
     justify-content: space-between;
     padding: 60px 80px;
-    background-color: #f9f9f9; /* Optional for visual structure */
-    flex-wrap: wrap; /* Allows wrapping on smaller screens */
-  }
-  
-  /* Style for the left-side content */
-  .hero-info {
+    background-color: #f9f9f9;
+    flex-wrap: wrap;
+}
+
+.hero-info {
     flex: 1;
     max-width: 50%;
-  }
-  
-  /* Optional container within the content */
-  .hero-info .contain h2 {
+}
+
+.hero-info .contain h2 {
     font-size: 1rem;
     color: #555;
     letter-spacing: 2px;
     margin-bottom: 10px;
-  }
-  
-  .hero-info .contain h1 {
+}
+
+.hero-info .contain h1 {
     font-size: 3rem;
     color: #000;
     margin: 0;
-  }
-  
-  .hero-info .contain h1 span {
+}
+
+.hero-info .contain h1 span {
     font-weight: bold;
     color: #000;
-  }
-  
-  .hero-info .contain p {
+}
+
+.hero-info .contain p {
     font-size: 1rem;
     color: #666;
     margin: 20px 0;
-  }
-  
-  /* Shop Now button styles */
-  .shop-now-btn button {
+}
+
+.shop-now-btn button {
     background: none;
     border: none;
     padding: 0;
-  }
-  
-  .shop-now-btn a {
+}
+
+.shop-now-btn a {
     text-decoration: none;
     font-weight: bold;
     color: #000;
     border-bottom: 2px solid #000;
     padding-bottom: 4px;
-  }
-  
-  /* Right-side image */
-  .hero-img {
+}
+
+.hero-img {
     flex: 1;
     text-align: right;
-  }
-  
-  .hero-img img {
+}
+
+.hero-img img {
     width: 90%;
     max-width: 500px;
     height: auto;
-  }
-  
+}
+
 /* =======================
    Collection Section
 ======================= */
@@ -912,23 +906,60 @@ footer hr {
     color: var(--text-light);
 }
 
+/* Enhanced Product Preview Modal */
+#productPreviewModal .modal-content {
+    max-width: 900px;
+    padding: var(--space-xl);
+    overflow: visible;
+}
+
 .quick-view-product {
     display: flex;
     gap: var(--space-xl);
+    align-items: flex-start;
 }
 
 .quick-view-product .product-image {
     flex: 1;
+    position: relative;
+    max-width: 50%;
 }
 
 .quick-view-product .product-image img {
     width: 100%;
     height: auto;
-    border-radius: var(--radius-sm);
+    max-height: 400px;
+    object-fit: contain;
+    border-radius: var(--radius-md);
+    box-shadow: var(--shadow-lg);
 }
 
 .quick-view-product .product-details {
     flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-md);
+}
+
+.price-container {
+    display: flex;
+    gap: var(--space-md);
+    align-items: center;
+    margin: var(--space-sm) 0;
+}
+
+#previewProductOldPrice {
+    text-decoration: line-through;
+    color: var(--text-lighter);
+    font-size: 0.9em;
+}
+
+#previewProductDiscount {
+    background-color: var(--primary-color);
+    color: white;
+    padding: 2px 8px;
+    border-radius: var(--radius-sm);
+    font-size: 0.8em;
 }
 
 .product-actions {
@@ -938,7 +969,7 @@ footer hr {
 }
 
 .product-actions button {
-    padding: var(--space-sm) var(--space-md);
+    padding: var(--space-sm) var(--space-lg);
     border: none;
     border-radius: var(--radius-sm);
     cursor: pointer;
@@ -946,6 +977,7 @@ footer hr {
     display: flex;
     align-items: center;
     gap: var(--space-xs);
+    font-weight: 500;
 }
 
 .product-actions .add-to-cart {
@@ -964,6 +996,71 @@ footer hr {
 
 .product-actions .add-to-wishlist:hover {
     background-color: var(--bg-light);
+}
+
+/* Image Gallery Controls */
+.image-gallery-controls {
+    display: flex;
+    justify-content: space-between;
+    margin-top: var(--space-md);
+    gap: var(--space-sm);
+}
+
+.image-gallery-controls button {
+    padding: var(--space-xs) var(--space-sm);
+    background-color: rgba(0, 0, 0, 0.5);
+    color: white;
+    border: none;
+    border-radius: var(--radius-sm);
+    cursor: pointer;
+    transition: all var(--transition-fast);
+    display: flex;
+    align-items: center;
+    gap: var(--space-xs);
+}
+
+.image-gallery-controls button:hover {
+    background-color: rgba(0, 0, 0, 0.8);
+}
+
+.image-gallery-controls .view-more-images {
+    flex-grow: 1;
+    justify-content: center;
+    background-color: var(--primary-color);
+}
+
+.image-gallery-controls .view-more-images:hover {
+    background-color: var(--primary-dark);
+}
+
+/* Image Thumbnails */
+.image-thumbnails {
+    display: none;
+    grid-template-columns: repeat(4, 1fr);
+    gap: var(--space-sm);
+    margin-top: var(--space-md);
+}
+
+.image-thumbnails.active {
+    display: grid;
+}
+
+.image-thumbnails img {
+    width: 100%;
+    height: 60px;
+    object-fit: cover;
+    border-radius: var(--radius-sm);
+    cursor: pointer;
+    transition: transform var(--transition-fast);
+    border: 2px solid transparent;
+}
+
+.image-thumbnails img:hover {
+    transform: scale(1.05);
+}
+
+.image-thumbnails img.active {
+    border-color: var(--primary-color);
 }
 
 .post-blog-heading-text {
@@ -1138,6 +1235,10 @@ footer hr {
 
     .quick-view-product {
         flex-direction: column;
+    }
+    
+    .quick-view-product .product-image {
+        max-width: 100%;
     }
 }
 
