@@ -262,6 +262,44 @@
         });
     </script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <!-- Product Preview Modal -->
+<div class="product-preview-modal" id="product-preview-modal">
+    <div class="modal-content">
+        <button class="close-modal">&times;</button>
+        <div class="product-preview-container">
+            <div class="product-preview-images">
+                <div class="main-image">
+                    <img id="preview-main-image" src="" alt="">
+                    <!-- Navigation buttons will be added here by JavaScript -->
+                </div>
+                <div class="thumbnail-images" id="thumbnail-images">
+                    <!-- Thumbnails will be added dynamically -->
+                </div>
+            </div>
+            <div class="product-preview-details">
+                <h2 id="preview-product-name"></h2>
+                <div class="price" id="preview-product-price"></div>
+                <div class="description" id="preview-product-description"></div>
+                <div class="product-meta">
+                    <div class="category"><span>Category:</span> <span id="preview-product-category"></span></div>
+                    <div class="availability"><span>Availability:</span> <span id="preview-product-availability"></span></div>
+                </div>
+                <div class="product-actions">
+                    <div class="quantity-selector">
+                        <button class="quantity-btn decrease">-</button>
+                        <label for="quantity-input" class="visually-hidden">Quantity</label>
+                        <input type="number" id="quantity-input" value="1" min="1" class="quantity-input" title="Enter quantity" placeholder="Quantity">
+                        <button class="quantity-btn increase">+</button>
+                    </div>
+                    <button class="add-to-cart-btn">Add to Cart</button>
+                    <button class="add-to-wishlist-btn">
+                        <i class="far fa-heart"></i> Add to Wishlist
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 </body>
 
 </html>

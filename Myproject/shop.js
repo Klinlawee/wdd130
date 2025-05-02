@@ -3,6 +3,9 @@
 
 // Cart functionality
 let cart = JSON.parse(localStorage.getItem('cart')) || [];
+//carousel functionality
+let currentPreviewIndex = 0;
+let currentProductImages = [];
 
 // DOM elements
 const productsContainer = document.getElementById('products-container');
@@ -462,6 +465,227 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 });
+// =======================
+//Products Preview functionality
+// =======================
+// Add this to your existing shop.js file
+
+// Product Preview Functionality
+function setupProductPreview() {
+    // Add click event to product images
+    document.querySelectorAll('.product-image img').forEach(img => {
+        img.style.cursor = 'pointer';
+        img.addEventListener('click', function(e) {
+            const productCard = this.closest('.product-card');
+            const productId = parseInt(productCard.querySelector('.add-to-cart').getAttribute('data-id'));
+            showProductPreview(productId);
+        });
+    });
+    
+    // Close modal button
+    document.querySelector('.product-preview-modal .close-modal').addEventListener('click', closeProductPreview);
+    
+    // Close when clicking outside modal
+    document.querySelector('.product-preview-modal').addEventListener('click', function(e) {
+        if (e.target === this) {
+            closeProductPreview();
+        }
+    });
+    
+    // Quantity buttons
+    document.querySelector('.quantity-btn.decrease').addEventListener('click', function() {
+        const input = this.nextElementSibling;
+        if (parseInt(input.value) > 1) {
+            input.value = parseInt(input.value) - 1;
+        }
+    });
+    
+    document.querySelector('.quantity-btn.increase').addEventListener('click', function() {
+        const input = this.previousElementSibling;
+        input.value = parseInt(input.value) + 1;
+    });
+    
+    // Add navigation buttons to main image container
+    const mainImageContainer = document.querySelector('.main-image');
+    
+    // Create next/prev buttons
+    const prevBtn = document.createElement('button');
+    prevBtn.className = 'preview-nav-btn preview-prev';
+    prevBtn.innerHTML = '<i class="fas fa-chevron-left"></i>';
+    prevBtn.addEventListener('click', navigatePreview.bind(null, -1));
+    
+    const nextBtn = document.createElement('button');
+    nextBtn.className = 'preview-nav-btn preview-next';
+    nextBtn.innerHTML = '<i class="fas fa-chevron-right"></i>';
+    nextBtn.addEventListener('click', navigatePreview.bind(null, 1));
+    
+    mainImageContainer.appendChild(prevBtn);
+    mainImageContainer.appendChild(nextBtn);
+    
+    // Add to cart from preview
+    document.querySelector('.add-to-cart-btn').addEventListener('click', function() {
+        const productId = parseInt(this.closest('.product-preview-modal').getAttribute('data-product-id'));
+        const quantity = parseInt(document.querySelector('.quantity-input').value);
+        addToCartFromPreview(productId, quantity);
+    });
+    
+    // Add to wishlist from preview
+    document.querySelector('.add-to-wishlist-btn').addEventListener('click', function() {
+        const productId = parseInt(this.closest('.product-preview-modal').getAttribute('data-product-id'));
+        toggleWishlist(productId);
+        this.classList.toggle('active');
+        this.querySelector('i').classList.toggle('fa-solid');
+        this.querySelector('i').classList.toggle('fa-regular');
+    });
+}
+
+function showProductPreview(productId) {
+    const product = products.find(p => p.id === productId);
+    if (!product) return;
+    
+    const modal = document.querySelector('.product-preview-modal');
+    modal.setAttribute('data-product-id', productId);
+    
+    // Set main image
+    document.getElementById('preview-main-image').src = product.image;
+    
+    // Set thumbnails (if you have multiple images)
+    const thumbnailsContainer = document.getElementById('thumbnail-images');
+    thumbnailsContainer.innerHTML = '';
+    
+    // For now we'll just use the main image as the only thumbnail
+    // In a real app you might have multiple images per product
+    const thumbnail = document.createElement('img');
+    thumbnail.src = product.image;
+    thumbnail.classList.add('active');
+    thumbnail.addEventListener('click', function() {
+        document.getElementById('preview-main-image').src = this.src;
+        document.querySelectorAll('#thumbnail-images img').forEach(img => img.classList.remove('active'));
+        this.classList.add('active');
+    });
+    thumbnailsContainer.appendChild(thumbnail);
+    
+    // Set product details
+    document.getElementById('preview-product-name').textContent = product.name;
+    
+    const priceElement = document.getElementById('preview-product-price');
+    priceElement.innerHTML = `$${product.price.toFixed(2)}`;
+    if (product.oldPrice) {
+        priceElement.innerHTML += ` <span class="old-price">$${product.oldPrice.toFixed(2)}</span>`;
+    }
+    
+    document.getElementById('preview-product-description').textContent = 
+        product.description || 'No description available.';
+    document.getElementById('preview-product-category').textContent = product.category || 'Uncategorized';
+    document.getElementById('preview-product-availability').textContent = 'In Stock';
+    
+    // Update wishlist button state
+    const wishlistBtn = document.querySelector('.add-to-wishlist-btn');
+    const isInWishlist = wishlist.includes(productId);
+    wishlistBtn.classList.toggle('active', isInWishlist);
+    wishlistBtn.querySelector('i').classList.toggle('fa-solid', isInWishlist);
+    wishlistBtn.querySelector('i').classList.toggle('fa-regular', !isInWishlist);
+    
+    // Reset quantity
+    document.querySelector('.quantity-input').value = 1;
+    
+    // Show modal
+    modal.classList.add('active');
+    document.body.style.overflow = 'hidden';
+}
+
+function closeProductPreview() {
+    const modal = document.querySelector('.product-preview-modal');
+    modal.classList.remove('active');
+    document.body.style.overflow = '';
+}
+
+function showProductPreview(productId) {
+    const product = products.find(p => p.id === productId);
+    if (!product) return;
+    
+    const modal = document.querySelector('.product-preview-modal');
+    modal.setAttribute('data-product-id', productId);
+    
+    // Store current product images and reset index
+    currentProductImages = product.images || [product.image];
+    currentPreviewIndex = 0;
+    
+    // Set main image
+    updateMainPreviewImage();
+    
+    // Set thumbnails
+    const thumbnailsContainer = document.getElementById('thumbnail-images');
+    thumbnailsContainer.innerHTML = '';
+    
+    currentProductImages.forEach((imgSrc, index) => {
+        const thumbnail = document.createElement('img');
+        thumbnail.src = imgSrc;
+        if (index === 0) thumbnail.classList.add('active');
+        thumbnail.addEventListener('click', () => {
+            currentPreviewIndex = index;
+            updateMainPreviewImage();
+            updateActiveThumbnail();
+        });
+        thumbnailsContainer.appendChild(thumbnail);
+    });
+    
+    // Set product details (keep all your existing product detail code)
+    document.getElementById('preview-product-name').textContent = product.name;
+    
+    const priceElement = document.getElementById('preview-product-price');
+    priceElement.innerHTML = `$${product.price.toFixed(2)}`;
+    if (product.oldPrice) {
+        priceElement.innerHTML += ` <span class="old-price">$${product.oldPrice.toFixed(2)}</span>`;
+    }
+    
+    document.getElementById('preview-product-description').textContent = 
+        product.description || 'No description available.';
+    document.getElementById('preview-product-category').textContent = product.category || 'Uncategorized';
+    document.getElementById('preview-product-availability').textContent = 'In Stock';
+    
+    // Update wishlist button state
+    const wishlistBtn = document.querySelector('.add-to-wishlist-btn');
+    const isInWishlist = wishlist.includes(productId);
+    wishlistBtn.classList.toggle('active', isInWishlist);
+    wishlistBtn.querySelector('i').classList.toggle('fa-solid', isInWishlist);
+    wishlistBtn.querySelector('i').classList.toggle('fa-regular', !isInWishlist);
+    
+    // Reset quantity
+    document.querySelector('.quantity-input').value = 1;
+    
+    // Show modal
+    modal.classList.add('active');
+    document.body.style.overflow = 'hidden';
+}
+//Hepler function
+function updateMainPreviewImage() {
+    const mainImage = document.getElementById('preview-main-image');
+    if (currentProductImages.length > 0) {
+        mainImage.src = currentProductImages[currentPreviewIndex];
+    }
+}
+
+function updateActiveThumbnail() {
+    const thumbnails = document.querySelectorAll('#thumbnail-images img');
+    thumbnails.forEach((thumb, index) => {
+        thumb.classList.toggle('active', index === currentPreviewIndex);
+    });
+}
+
+function navigatePreview(direction) {
+    currentPreviewIndex += direction;
+    
+    // Wrap around if at ends
+    if (currentPreviewIndex < 0) {
+        currentPreviewIndex = currentProductImages.length - 1;
+    } else if (currentPreviewIndex >= currentProductImages.length) {
+        currentPreviewIndex = 0;
+    }
+    
+    updateMainPreviewImage();
+    updateActiveThumbnail();
+}
 // Show loader on page load
 // Initialize the shop
 function initShop() {
@@ -471,9 +695,8 @@ function initShop() {
     updateCartCount();
     updateWishlistCount();
     initWishlistButtons();
+    setupProductPreview();
 }
-
-// ... rest of your code ...
 
 // Initialize the shop when DOM is loaded
 document.addEventListener('DOMContentLoaded', initShop);

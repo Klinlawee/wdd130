@@ -251,3 +251,5 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 });
+
+// ======================= Product Preview functionality =======================//
