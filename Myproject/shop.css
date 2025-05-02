@@ -1173,9 +1173,9 @@ footer hr {
     text-align: center;
     border: none;
     padding: var(--space-sm) 0;
-    appearance: textfield; /* Standard */
     -webkit-appearance: textfield; /* Chrome, Safari */
     -moz-appearance: textfield; /* Firefox */
+    appearance: textfield; /* Standard */
 }
 
 .quantity-input::-webkit-outer-spin-button,
