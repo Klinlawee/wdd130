@@ -1,0 +1,25 @@
+ecommerce-backend/
+├── config/
+│   ├── db.js                # Database connection
+│   └── jwt.js               # JWT configuration
+├── controllers/
+│   ├── authController.js    # Authentication logic
+│   ├── cartController.js    # Cart operations
+│   ├── orderController.js   # Order processing
+│   └── productController.js # Product management
+├── middlewares/
+│   ├── auth.js              # Authentication middleware
+│   └── errorHandler.js      # Error handling
+├── models/
+│   ├── Cart.js              # Cart model
+│   ├── Order.js             # Order model
+│   ├── Product.js           # Product model
+│   └── User.js              # User model
+├── routes/
+│   ├── authRoutes.js        # Authentication routes
+│   ├── cartRoutes.js        # Cart routes
+│   ├── orderRoutes.js       # Order routes
+│   └── productRoutes.js     # Product routes
+├── .env                     # Environment variables
+├── app.js                   # Main application
+└── server.js                # Server entry point

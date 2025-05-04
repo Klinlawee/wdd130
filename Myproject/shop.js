@@ -585,21 +585,28 @@ function initWishlistButtons() {
 }
 
 // =======================
-// PRODUCT PREVIEW FUNCTIONALITY
+// FIXED PRODUCT PREVIEW FUNCTIONALITY
 // =======================
 
+let previewKeyHandlerAdded = false;
+
 function setupProductPreview() {
+    // Setup product image click preview
     document.querySelectorAll('.product-image img').forEach(img => {
-        img.style.cursor = 'pointer';
-        img.addEventListener('click', function(e) {
-            const productCard = this.closest('.product-card');
-            const productId = parseInt(productCard.querySelector('.add-to-cart').getAttribute('data-id'));
-            showProductPreview(productId);
-        });
+        if (!img.dataset.listener) { // prevent duplicate listener
+            img.style.cursor = 'pointer';
+            img.addEventListener('click', function(e) {
+                const productCard = this.closest('.product-card');
+                const productId = parseInt(productCard.querySelector('.add-to-cart').getAttribute('data-id'));
+                showProductPreview(productId);
+            });
+            img.dataset.listener = 'true';
+        }
     });
 
-    if (!previewKeyHandler) {
-        previewKeyHandler = (e) => {
+    // Keyboard navigation (add only once)
+    if (!previewKeyHandlerAdded) {
+        document.addEventListener('keydown', function(e) {
             const modal = document.querySelector('.product-preview-modal');
             if (modal?.classList.contains('active')) {
                 if (e.key === 'ArrowLeft') {
@@ -610,21 +617,24 @@ function setupProductPreview() {
                     closeProductPreview();
                 }
             }
-        };
-        document.addEventListener('keydown', previewKeyHandler);
+        });
+        previewKeyHandlerAdded = true;
     }
 
+    // Close modal
     const closeModalBtn = document.querySelector('.product-preview-modal .close-modal');
-    if (closeModalBtn) {
+    if (closeModalBtn && !closeModalBtn.dataset.listener) {
         closeModalBtn.addEventListener('click', function(e) {
             e.preventDefault();
             e.stopImmediatePropagation();
             closeProductPreview();
         }, true);
+        closeModalBtn.dataset.listener = 'true';
     }
 
+    // Quantity decrease
     const decreaseBtn = document.querySelector('.quantity-btn.decrease');
-    if (decreaseBtn) {
+    if (decreaseBtn && !decreaseBtn.dataset.listener) {
         decreaseBtn.addEventListener('click', function(e) {
             e.preventDefault();
             e.stopImmediatePropagation();
@@ -633,20 +643,24 @@ function setupProductPreview() {
                 input.value = parseInt(input.value) - 1;
             }
         }, true);
+        decreaseBtn.dataset.listener = 'true';
     }
 
+    // Quantity increase
     const increaseBtn = document.querySelector('.quantity-btn.increase');
-    if (increaseBtn) {
+    if (increaseBtn && !increaseBtn.dataset.listener) {
         increaseBtn.addEventListener('click', function(e) {
             e.preventDefault();
             e.stopImmediatePropagation();
             const input = this.previousElementSibling;
             input.value = parseInt(input.value) + 1;
         }, true);
+        increaseBtn.dataset.listener = 'true';
     }
 
+    // Add to cart
     const addToCartBtn = document.querySelector('.add-to-cart-btn');
-    if (addToCartBtn) {
+    if (addToCartBtn && !addToCartBtn.dataset.listener) {
         addToCartBtn.addEventListener('click', function(e) {
             e.preventDefault();
             e.stopImmediatePropagation();
@@ -656,14 +670,16 @@ function setupProductPreview() {
                 addToCartFromPreview(productId, quantity);
             }
         }, true);
+        addToCartBtn.dataset.listener = 'true';
     }
 
+    // Add to wishlist (FIXED no more cloneNode freezes)
     const addToWishlistBtn = document.querySelector('.add-to-wishlist-btn');
-    if (addToWishlistBtn) {
+    if (addToWishlistBtn && !addToWishlistBtn.dataset.listener) {
         addToWishlistBtn.addEventListener('click', function(e) {
             e.preventDefault();
             e.stopPropagation();
-            
+
             const productId = parseInt(this.closest('.product-preview-modal')?.getAttribute('data-product-id'));
             if (!productId) return;
 
@@ -673,16 +689,16 @@ function setupProductPreview() {
             } else {
                 wishlist.splice(index, 1);
             }
-            
+
             localStorage.setItem('wishlist', JSON.stringify(wishlist));
             updateWishlistCount();
-            
+
             this.classList.toggle('active');
             const icon = this.querySelector('i');
             if (icon) {
                 icon.className = this.classList.contains('active') ? 'fas fa-heart' : 'far fa-heart';
             }
-            
+
             document.querySelectorAll(`[data-product-id="${productId}"]`).forEach(btn => {
                 btn.classList.toggle('active');
                 const btnIcon = btn.querySelector('i');
@@ -690,20 +706,35 @@ function setupProductPreview() {
                     btnIcon.className = btn.classList.contains('active') ? 'fas fa-heart' : 'far fa-heart';
                 }
             });
-            
+
             showModalNotification(index === -1 ? 'Added to wishlist!' : 'Removed from wishlist!');
         });
+        addToWishlistBtn.dataset.listener = 'true';
     }
 
+    // Continue shopping
     const continueBtn = document.querySelector('.continue-shopping-btn');
-    if (continueBtn) {
+    if (continueBtn && !continueBtn.dataset.listener) {
         continueBtn.addEventListener('click', function(e) {
             e.preventDefault();
             e.stopImmediatePropagation();
             closeProductPreview();
         }, true);
+        continueBtn.dataset.listener = 'true';
+    }
+
+    // Click outside modal closes it
+    const modal = document.querySelector('.product-preview-modal');
+    if (modal && !modal.dataset.listener) {
+        modal.addEventListener('click', function(e) {
+            if (e.target === this) {
+                closeProductPreview();
+            }
+        });
+        modal.dataset.listener = 'true';
     }
 }
+
 
 function showProductPreview(productId) {
     const product = products.find(p => p.id === productId);

@@ -1,0 +1,12 @@
+{
+    "type": "node",
+    "request": "launch",
+    "name": "Launch Backend",
+    "skipFiles": ["<node_internals>/**"],
+    "program": "${workspaceFolder}/server.js",
+    "envFile": "${workspaceFolder}/.env",
+    "env": {
+      "NODE_ENV": "development"
+    }
+  }
+  

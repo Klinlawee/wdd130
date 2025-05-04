@@ -1,0 +1,15 @@
+### Get all products
+GET http://localhost:5501/api/products
+
+### Create a product
+POST http://localhost:5501/api/products
+Content-Type: application/json
+
+{
+  "name": "Premium Headphones",
+  "description": "Noise cancelling wireless headphones",
+  "price": 299.99,
+  "category": "electronics",
+  "stock": 50,
+  "images": ["headphones.jpg"]
+}

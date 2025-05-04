@@ -1061,8 +1061,105 @@
       }
 
       // Call it on page load if you want live rates
-      // getExchangeRate();
+      getExchangeRate();
     });
+    // Initialize Paystack payment
+async function initializePaystackPayment(email, amount, orderId) {
+  try {
+    const response = await fetch('/api/payment/paystack', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${localStorage.getItem('token')}`
+      },
+      body: JSON.stringify({
+        orderId,
+        email,
+        amount: amount * 100, // Convert to pesewas
+        callback_url: `${window.location.origin}/thankyou.html`
+      })
+    });
+    
+    const data = await response.json();
+    
+    if (response.ok) {
+      // Redirect to Paystack payment page
+      window.location.href = data.authorizationUrl;
+    } else {
+      throw new Error(data.msg || 'Payment initialization failed');
+    }
+  } catch (err) {
+    console.error('Payment error:', err);
+    showNotification(err.message, true);
+  }
+}
+
+// Replace the credit card form submission handler
+if (creditCardForm) {
+  creditCardForm.addEventListener('submit', async function(e) {
+    e.preventDefault();
+    
+    if (cart.length === 0) {
+      showNotification('Your cart is empty', true);
+      return;
+    }
+    
+    if (!validateForm() || !validatePaymentForm()) {
+      showNotification('Please fill all required fields correctly', true);
+      return;
+    }
+    
+    // Get customer details
+    const email = document.getElementById('email').value;
+    const firstName = document.getElementById('first-name').value;
+    const lastName = document.getElementById('last-name').value;
+    const address = document.getElementById('address').value;
+    const address2 = document.getElementById('address2').value;
+    const city = document.getElementById('city').value;
+    const country = document.getElementById('country').value;
+    const state = document.getElementById('state').value;
+    const zip = document.getElementById('zip').value;
+    const phone = document.getElementById('phone').value;
+    
+    // Create order data
+    const orderData = {
+      shippingAddress: {
+        street: address,
+        city,
+        state,
+        country,
+        zipCode: zip,
+        ...(address2 && { address2 })
+      },
+      paymentMethod: 'card'
+    };
+    
+    try {
+      // First create the order
+      const orderResponse = await fetch('/api/orders', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${localStorage.getItem('token')}`
+        },
+        body: JSON.stringify(orderData)
+      });
+      
+      const order = await orderResponse.json();
+      
+      if (!orderResponse.ok) {
+        throw new Error(order.msg || 'Order creation failed');
+      }
+      
+      // Then initialize payment
+      const totalAmount = parseFloat(document.getElementById('total').textContent.replace('GH₵', ''));
+      await initializePaystackPayment(email, totalAmount, order._id);
+    } catch (err) {
+      console.error('Checkout error:', err);
+      showNotification(err.message, true);
+    }
+  });
+}
   </script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/js/all.min.js"></script>
 </body>
